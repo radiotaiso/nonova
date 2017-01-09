@@ -87,3 +87,7 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# Config files with passwords and stuff (nonova)
+.conf
+.ini
