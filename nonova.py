@@ -3,12 +3,12 @@
 #PREREQUISITES TO RUN THIS THING
 # -ConfigParser
 # -nova-cli? or will it be hosted in tchai? if tchai true, we need to make it public
-
+import os
 #https://docs.python.org/2/library/configparser.html
 import configparser
 from optparse import OptionParser
 #Requerir el archivo de config, si no existe, prompt user/pass y crear uno
-
+nonovaconfigfile="nonovaconfig.ini"
 class NoNovaOptsParser(OptionParser):
     def __init__(self):
         usage = "usage %prog [OPTIONS]"
@@ -22,10 +22,14 @@ class NoNovaOptsParser(OptionParser):
                   help="saca el pack papu")
 def NoNovaConfigParserConfig:
     configp = configparser.ConfigParser
-    if nonovaconfig == True: #Checks if nonovaconifg file exists
-        configp.read("nonovaconfig.cfg")
-    else: #Creates nonovaconfig file if not found
-        NoNovaConfigParserCreate():
+    if (os.path.isfile(nonovaconfigfile)):
+        print("Error: %s file not found" %nonovaconfigfile)
+    else:
+        print("Setting php jail using %s ..." %nonovaconfigfile)
+    # if nonovaconfig == True: #Checks if nonovaconifg file exists
+    #     configp.read("nonovaconfig.cfg")
+    # else: #Creates nonovaconfig file if not found
+    #     NoNovaConfigParserCreate():
 def NoNovaConfigParserCreate:
         print('Creating new text file...')
         try:
