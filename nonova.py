@@ -35,9 +35,13 @@ class NoNovaConfigParser(ConfigParser):
             with open(self.nonovaconfigfile, "wb") as config_file:
                 self.configp.write(config_file)
 
+
+
+
+
 def cli_parser():
     parser = ArgumentParser(description = """Command line helper for filling nova""")
-    parser.add_argument("-c" " --config", dest="config", help="Config file")
+    parser.add_argument("-c" " --config", dest="config", help="Config file", type=config)
     parser.add_argument("-A" " --de-actividades",
     help="Print the activity arguments with ID")
 #    parser.add_argument("-P", "--de-proyectos",
@@ -48,6 +52,15 @@ def cli_parser():
         sys.exit(1)
     args = parser.parse_args()
     #return args
+
+def config():
+    confparse = NoNovaConfigParser()
+
+    confparse.nonova_create_config()
+
+
+def main():
+    cli_parser()
 
 if __name__ == "__main__":
     sys.exit(cli_parser())
