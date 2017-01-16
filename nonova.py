@@ -17,12 +17,12 @@ class NoNovaConfigParser(ConfigParser):
         super(self).__init__()
         self.configp = configparser.ConfigParser()
         self.nonovaconfigfile="nonovaconfig.ini"
-        if (os.path.isfile(self.nonovaconfigfile)):
-            print("%s file found" % self.nonovaconfigfile)
-            self.configp.read(self.nonovaconfigfile)
-        else:
-            print("Error: %s file not found" % self.nonovaconfigfile)
-            self.nonova_create_config()
+        # if (os.path.isfile(self.nonovaconfigfile)):
+        #     print("%s file found" % self.nonovaconfigfile)
+        #     self.configp.read(self.nonovaconfigfile)
+        # else:
+        #     print("Error: %s file not found" % self.nonovaconfigfile)
+        #     self.nonova_create_config()
     def nonova_create_config(self):
             print ("Creating new text file...")
             print ("-------------------------")
@@ -34,9 +34,6 @@ class NoNovaConfigParser(ConfigParser):
             self.configp.set("Credentials","pass",password)
             with open(self.nonovaconfigfile, "wb") as config_file:
                 self.configp.write(config_file)
-
-
-
 
 
 def cli_parser():
@@ -54,6 +51,7 @@ def cli_parser():
     #return args
 
 def config():
+    # Verify conf file exists, else create_cofig
     confparse = NoNovaConfigParser()
 
     confparse.nonova_create_config()
