@@ -13,27 +13,27 @@ from argparse import ArgumentParser
 class NoNovaConfigParser(ConfigParser):
     def __init__(self):
         super(self).__init__()
-        configp = configparser.ConfigParser()
+        self.configp = configparser.ConfigParser()
         nonovaconfigfile="nonovaconfig.ini"
         if (os.path.isfile(nonovaconfigfile)):
             print("%s file found" %nonovaconfigfile)
-            configp.read(nonovaconfigfile)
+            self.configp.read(nonovaconfigfile)
         else:
             print("Error: %s file not found" %nonovaconfigfile)
-            NoNovaCreateConfig()
-    def NoNovaCreateConfig:
+            self.NoNovaCreateConfig()
+    def NoNovaCreateConfig(self):
             print ("Creating new text file...")
             print ("-------------------------")
             user = raw_input("What's your username? ")
             password = raw_input("What's your password? Pinky promise we won't share it")
             print ("thanks that's all, we'll let you know when is finished")
-            configp.add_section("Credentials")
-            configp.set("Credentials","user",user)
-            configp.set("Credentials","pass",password)
+            self.configp.add_section("Credentials")
+            self.configp.set("Credentials","user",user)
+            self.configp.set("Credentials","pass",password)
                         "Your username is %(user) and your password is secret, you can always update it in "+nonovaconfigfile+" where this project is located."
 
         with open(nonovaconfigfile, "wb") as config_file:
-            configp.write(config_file)
+            self.configp.write(config_file)
 
 def cli_parser():
     parser = ArgumentParser(description = """Command line helper for filling nova""")
