@@ -9,10 +9,6 @@ import configparser
 from optparse import argumentParser
 from argparse import ArgumentParser
 
-#Requerir el archivo de config, si no existe, prompt user/pass y crear uno
-nonovaconfigfile="nonovaconfig.ini" # Esto no creo que deba estar aqui pero sirve de momento
-
-
 class NoNovaOptsParser(ArgumentParser):
     def __init__(self):
         usage = "usage %prog [arguments]"
@@ -29,13 +25,14 @@ class NoNovaConfigParser(ConfigParser):
     def __init__(self):
         super(self).__init__()
         configp = configparser.ConfigParser()
+        nonovaconfigfile="nonovaconfig.ini"
         if (os.path.isfile(nonovaconfigfile)):
             print("%s file found" %nonovaconfigfile)
             configp.read(nonovaconfigfile)
         else:
             print("Error: %s file not found" %nonovaconfigfile)
-    #    NoNovaConfigParserCreate()
-    #def NoNovaConfigParserCreate:
+            NoNovaCreateConfig()
+    def NoNovaCreateConfig:
             print ("Creating new text file...")
             print ("-------------------------")
             user = raw_input("What's your username? ")
