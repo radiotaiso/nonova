@@ -34,15 +34,20 @@ class NoNovaConfigParser(ConfigParser):
             configp.read(nonovaconfigfile)
         else:
             print("Error: %s file not found" %nonovaconfigfile)
-        NoNovaConfigParserCreate()
-        # if nonovaconfig == True: #Checks if nonovaconifg file exists
-        #     configp.read("nonovaconfig.cfg")
-        # else: #Creates nonovaconfig file if not found
-        #     NoNovaConfigParserCreate():
-    def NoNovaConfigParserCreate:
-            print('Creating new text file...')
+    #    NoNovaConfigParserCreate()
+    #def NoNovaConfigParserCreate:
+            print ("Creating new text file...")
+            print ("-------------------------")
+            user = raw_input("What's your username? ")
+            password = raw_input("What's your password? Pinky promise we won't share it")
+            print ("thanks that's all, we'll let you know when is finished")
+            configp.add_section("Credentials")
+            configp.set("Credentials","user",user)
+            configp.set("Credentials","pass",password)
+                        "Your username is %(user) and your password is secret, you can always update it in "+nonovaconfigfile+" where this project is located."
 
-        write()
+        with open(nonovaconfigfile, "wb") as config_file:
+            configp.write(config_file)
 
 def tablitaActividades():
     print "You will be required the activity ID"
