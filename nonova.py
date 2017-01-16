@@ -39,8 +39,7 @@ class NoNovaConfigParser(ConfigParser):
 def cli_parser():
     parser = ArgumentParser(description = """Command line helper for filling nova""")
     parser.add_argument("-c" " --config", dest="config", help="Config file", type=config)
-    parser.add_argument("-A" " --de-actividades",
-    help="Print the activity arguments with ID")
+    parser.add_argument("-A" " --de-actividades", help="Print the activity arguments with ID", type=activity)
 #    parser.add_argument("-P", "--de-proyectos",
     #help="Print your personal project arguments with ID, This requires CONF FILE ")
     parser.add_argument("--papu", dest="papu", default='saca el pack papu', action="store", type=str)
@@ -53,8 +52,17 @@ def cli_parser():
 def config():
     # Verify conf file exists, else create_cofig
     confparse = NoNovaConfigParser()
+    if not os.path.exists(nonovaconfigfile):
+        confparse.nonova_create_config()
+    else:
+        confparse.read(nonovaconfigfile)
+        user = confparse.get("Credentials","user")
+        password = confparse.get("Credentials","pass")
+        print "Your credentials are "+user+" and "+password
+        # Login to nova CLI using Credentials :D
+        # Maybe a success message
 
-    confparse.nonova_create_config()
+def activity():
 
 
 def main():
