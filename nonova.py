@@ -30,7 +30,6 @@ class NoNovaConfigParser(ConfigParser):
             self.configp.add_section("Credentials")
             self.configp.set("Credentials","user",user)
             self.configp.set("Credentials","pass",password)
-                        "Your username is %(user) and your password is secret, you can always update it in "+nonovaconfigfile+" where this project is located."
 
         with open(nonovaconfigfile, "wb") as config_file:
             self.configp.write(config_file)
