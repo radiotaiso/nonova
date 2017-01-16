@@ -9,10 +9,6 @@ import configparser
 from optparse import argumentParser
 from argparse import ArgumentParser
 
-#Requerir el archivo de config, si no existe, prompt user/pass y crear uno
-nonovaconfigfile="nonovaconfig.ini" # Esto no creo que deba estar aqui pero sirve de momento
-
-
 class NoNovaOptsParser(ArgumentParser):
     def __init__(self):
         usage = "usage %prog [arguments]"
@@ -29,20 +25,26 @@ class NoNovaConfigParser(ConfigParser):
     def __init__(self):
         super(self).__init__()
         configp = configparser.ConfigParser()
+        nonovaconfigfile="nonovaconfig.ini"
         if (os.path.isfile(nonovaconfigfile)):
             print("%s file found" %nonovaconfigfile)
             configp.read(nonovaconfigfile)
         else:
             print("Error: %s file not found" %nonovaconfigfile)
-        NoNovaConfigParserCreate()
-        # if nonovaconfig == True: #Checks if nonovaconifg file exists
-        #     configp.read("nonovaconfig.cfg")
-        # else: #Creates nonovaconfig file if not found
-        #     NoNovaConfigParserCreate():
-    def NoNovaConfigParserCreate:
-            print('Creating new text file...')
+            NoNovaCreateConfig()
+    def NoNovaCreateConfig:
+            print ("Creating new text file...")
+            print ("-------------------------")
+            user = raw_input("What's your username? ")
+            password = raw_input("What's your password? Pinky promise we won't share it")
+            print ("thanks that's all, we'll let you know when is finished")
+            configp.add_section("Credentials")
+            configp.set("Credentials","user",user)
+            configp.set("Credentials","pass",password)
+                        "Your username is %(user) and your password is secret, you can always update it in "+nonovaconfigfile+" where this project is located."
 
-        write()
+        with open(nonovaconfigfile, "wb") as config_file:
+            configp.write(config_file)
 
 def tablitaActividades():
     print "You will be required the activity ID"
