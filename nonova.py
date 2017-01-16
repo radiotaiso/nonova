@@ -6,39 +6,43 @@
 import os
 #https://docs.python.org/2/library/configparser.html
 import configparser
-from optparse import OptionParser
+from optparse import argumentParser
+from argparse import ArgumentParser
+
 #Requerir el archivo de config, si no existe, prompt user/pass y crear uno
-nonovaconfigfile="nonovaconfig.ini"
-class NoNovaOptsParser(OptionParser):
+nonovaconfigfile="nonovaconfig.ini" # Esto no creo que deba estar aqui pero sirve de momento
+
+
+class NoNovaOptsParser(ArgumentParser):
     def __init__(self):
-        usage = "usage %prog [OPTIONS]"
-        self.add_option("-c" "--la-conf", dest="config",
+        usage = "usage %prog [arguments]"
+        self.add_argument("-c" "--la-conf", dest="config",
                   help="Set config file with user:pass")
-        self.add_option("-A", "--de-actividades",
-                  help="Print the activity options with ID")
-        self.add_option("-P", "--de-proyectos",
-                  help="Print your personal project options with ID, This requires CONF FILE ")
-        self.add_option("-papu",
+        self.add_argument("-A", "--de-actividades",
+                  help="Print the activity arguments with ID")
+        self.add_argument("-P", "--de-proyectos",
+                  help="Print your personal project arguments with ID, This requires CONF FILE ")
+        self.add_argument("-papu",
                   help="saca el pack papu")
-def NoNovaConfigParserConfig:
-    configp = configparser.ConfigParser
-    if (os.path.isfile(nonovaconfigfile)):
-        print("Error: %s file not found" %nonovaconfigfile)
-    else:
-        print("Setting php jail using %s ..." %nonovaconfigfile)
-    # if nonovaconfig == True: #Checks if nonovaconifg file exists
-    #     configp.read("nonovaconfig.cfg")
-    # else: #Creates nonovaconfig file if not found
-    #     NoNovaConfigParserCreate():
-def NoNovaConfigParserCreate:
-        print('Creating new text file...')
-        try:
-            file = open("nonovaconfig.ini",'a')   # the "a" this will create the file if the file does not exist, but will not truncate the existing file.
-            file.close()
-        except:
-            print('Something went wrong! Can\'t tell what?')
-            sys.exit(0) # quit Python
-    write()
+
+class NoNovaConfigParser(ConfigParser):
+    def __init__(self):
+        super(self).__init__()
+        configp = configparser.ConfigParser()
+        if (os.path.isfile(nonovaconfigfile)):
+            print("%s file found" %nonovaconfigfile)
+            configp.read(nonovaconfigfile)
+        else:
+            print("Error: %s file not found" %nonovaconfigfile)
+        NoNovaConfigParserCreate()
+        # if nonovaconfig == True: #Checks if nonovaconifg file exists
+        #     configp.read("nonovaconfig.cfg")
+        # else: #Creates nonovaconfig file if not found
+        #     NoNovaConfigParserCreate():
+    def NoNovaConfigParserCreate:
+            print('Creating new text file...')
+
+        write()
 
 def tablitaActividades():
     print "You will be required the activity ID"
@@ -56,7 +60,11 @@ def config():
 def test():
 
 def main()
-if __name__ == "__main__":
+
+
+
+
+if __name__ == "__main__" :
 
 
 
