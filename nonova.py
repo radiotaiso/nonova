@@ -34,7 +34,14 @@ class NoNovaConfigParser(ConfigParser):
                 self.configp.write(config_file)
             print "Config file created!"
             print "Remember use the -p option to fetch your projects! You only need to do this once!"
-
+    def nonova_confirm_config(self):
+            print "Entra a nonova_confirm_config"
+            print "one step in the right direction"
+            self.configp.read(self.nonovaconfigfile)
+            userConfirm = self.configp.get("Credentials","user")
+            passConfirm = self.configp.get("Credentials","pass")
+            print "Success!"
+            print "Your credentials are {} and {}".format(userConfirm, passConfirm)
 def cli_parser():
     parser = ArgumentParser(description = """Command line helper for filling nova""")
     parser.add_argument("-c" " --config", dest="config", help="Config file", type=str)
@@ -54,11 +61,12 @@ def config(args):
     if not os.path.exists(confparse.nonovaconfigfile):
         confparse.nonova_create_config()
     else:
-        confparse.read(confparse.nonovaconfigfile)
-        user = confparse.get("Credentials","user")
-        password = confparse.get("Credentials","pass")
-        print "Success!"
-        print "Your credentials are {} and {}".format(user, password)
+        # Everything here moves to a func to be the same as the if
+        confparse.nonova_confirm_config()
+        # user = confparse.get("Credentials","user")
+        # password = confparse.get("Credentials","pass")
+        # print "Success!"
+        # print "Your credentials are {} and {}".format(user, password)
         # Login to nova CLI using Credentials :D
         # Maybe a success message
 
