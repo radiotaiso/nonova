@@ -1,16 +1,15 @@
 #/bin/python
 
 #PREREQUISITES TO RUN THIS THING
+# -Python27
 # -ConfigParser
+# -ArgParse
 # -nova-cli? or will it be hosted in tchai? if tchai true, we need to make it public
 import os
 import sys
-#https://docs.python.org/2/library/configparser.html
+## https://docs.python.org/2/library/configparser.html
 from configparser import ConfigParser
 from argparse import ArgumentParser
-
-
-
 
 class NoNovaConfigParser(ConfigParser):
     def __init__(self):
@@ -39,7 +38,7 @@ class NoNovaConfigParser(ConfigParser):
 def cli_parser():
     parser = ArgumentParser(description = """Command line helper for filling nova""")
     parser.add_argument("-c" " --config", dest="config", help="Config file", type=config)
-    parser.add_argument("-a" " --de-actividades", help="Print the activity arguments with ID", type=activity)
+    parser.add_argument("-a" ,dest="action", help="Print the activity arguments with ID",action="store_const",const=activity)
 #    parser.add_argument("-P", "--de-proyectos",
     #help="Print your personal project arguments with ID, This requires CONF FILE ")
     parser.add_argument("--papu", dest="papu", default='saca el pack papu', action="store", type=str)
@@ -63,11 +62,11 @@ def config():
         # Maybe a success message
 
 def activity():
-    print ("You will be required the activity ID")
-    print ("------------------------------------")
+    print "You will be required the activity ID"
+    print "------------------------------------"
     actividades = {1:"Coding",2:"Meeting w/Client",3:"Design",4:"Meeting",5:"Support",6:"Training",7:"Fix/Debug",8:"Project Hours",9:"Research",11:"Project Review",12:"Project Management",13:"Architect",14:"Testing / QA",15:"Estimation",16:"PTO",17:"Holiday",18:"Analysis",19:"UI Graphic Design",20:"Code Redesign",21:"iTexico MX Task",23:"Interviewing",24:"Recruting",25:"Documentation",26:"Environment Setup",27:"Technical Advising",28:"TL",29:"Vacation"}
     for key in actividades:
-        print (key,"......",actividades[key])
+        print key,"......",actividades[key]
 
 def main():
     cli_parser()
