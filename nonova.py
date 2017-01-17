@@ -33,6 +33,7 @@ class NoNovaConfigParser(ConfigParser):
             self.configp.set("Credentials","pass",password)
             with open(self.nonovaconfigfile, "wb") as config_file:
                 self.configp.write(config_file)
+            print "Config file created!"
 
 
 def cli_parser():
