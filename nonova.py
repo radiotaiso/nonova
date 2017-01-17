@@ -40,7 +40,7 @@ def cli_parser():
     parser.add_argument("-A" ,dest="activity", help="Print the activity arguments with ID",action="store_true")
 #    parser.add_argument("-P", "--de-proyectos",
     #help="Print your personal project arguments with ID, This requires CONF FILE ")
-    parser.add_argument("--papu", dest="papu", default='saca el pack papu', action="store", type=str)
+    parser.add_argument("--papu", dest="papu", help="summon papu" default='saca el pack papu', action="store", type=str)
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit(1)
