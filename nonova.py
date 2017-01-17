@@ -15,12 +15,6 @@ class NoNovaConfigParser(ConfigParser):
     def __init__(self, conf_file):
         self.configp = ConfigParser()
         self.nonovaconfigfile = conf_file
-        # if (os.path.isfile(self.nonovaconfigfile)):
-        #     print("%s file found" % self.nonovaconfigfile)
-        #     self.configp.read(self.nonovaconfigfile)
-        # else:
-        #     print("Error: %s file not found" % self.nonovaconfigfile)
-        #     self.nonova_create_config()
     def nonova_create_config(self):
             print ("Creating new text file...")
             print ("-------------------------")
@@ -35,18 +29,19 @@ class NoNovaConfigParser(ConfigParser):
             print "Config file created!"
             print "Remember use the -p option to fetch your projects! You only need to do this once!"
     def nonova_confirm_config(self):
-            print "Entra a nonova_confirm_config"
-            print "one step in the right direction"
             self.configp.read(self.nonovaconfigfile)
             userConfirm = self.configp.get("Credentials","user")
             passConfirm = self.configp.get("Credentials","pass")
             print "Success!"
             print "Your credentials are {} and {}".format(userConfirm, passConfirm)
+
+# --------- ends NoNovaConfigParser class -----------------
+
 def cli_parser():
     parser = ArgumentParser(description = """Command line helper for filling nova""")
     parser.add_argument("-c" " --config", dest="config", help="Config file", type=str)
     parser.add_argument("-A" ,dest="activity", help="Print the activity arguments with ID",action="store_true")
-#    parser.add_argument("-P", "--de-proyectos",
+    # parser.add_argument("-P", "--de-proyectos",
     # help="Print your personal project arguments with ID, This requires CONF FILE ")
     # parser.add_argument("--papu", dest="papu", help="summon papu" default="saca el pack papu", action="store", type=str)
     if len(sys.argv) == 1:
@@ -61,14 +56,7 @@ def config(args):
     if not os.path.exists(confparse.nonovaconfigfile):
         confparse.nonova_create_config()
     else:
-        # Everything here moves to a func to be the same as the if
         confparse.nonova_confirm_config()
-        # user = confparse.get("Credentials","user")
-        # password = confparse.get("Credentials","pass")
-        # print "Success!"
-        # print "Your credentials are {} and {}".format(user, password)
-        # Login to nova CLI using Credentials :D
-        # Maybe a success message
 
 def activity():
     print "You will be required the activity ID"
