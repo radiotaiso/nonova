@@ -24,23 +24,24 @@ class NoNovaConfigParser(ConfigParser):
     def nonova_create_config(self):
             print ("Creating new text file...")
             print ("-------------------------")
-            self.user = raw_input("What's your username? ")
-            self.password = raw_input("What's your password? Pinky promise we won't share it")
-            print ("thanks that's all, we'll let you know when is finished")
+            self.user = raw_input("What's your username?: ")
+            self.password = raw_input("What's your password? Pinky promise we won't share it: ")
+            print ("Thanks that's all, we'll let you know when is finished")
             self.configp.add_section("Credentials")
             self.configp.set("Credentials","user",self.user)
             self.configp.set("Credentials","pass",self.password)
             with open(self.nonovaconfigfile, "wb") as config_file:
                 self.configp.write(config_file)
             print "Config file created!"
+            print "Remember use the -p option to fetch your projects! You only need to do this once!"
 
 def cli_parser():
     parser = ArgumentParser(description = """Command line helper for filling nova""")
     parser.add_argument("-c" " --config", dest="config", help="Config file", type=str)
     parser.add_argument("-A" ,dest="activity", help="Print the activity arguments with ID",action="store_true")
 #    parser.add_argument("-P", "--de-proyectos",
-    #help="Print your personal project arguments with ID, This requires CONF FILE ")
-    parser.add_argument("--papu", dest="papu", help="summon papu" default='saca el pack papu', action="store", type=str)
+    # help="Print your personal project arguments with ID, This requires CONF FILE ")
+    # parser.add_argument("--papu", dest="papu", help="summon papu" default="saca el pack papu", action="store", type=str)
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit(1)
@@ -53,9 +54,10 @@ def config(args):
     if not os.path.exists(confparse.nonovaconfigfile):
         confparse.nonova_create_config()
     else:
-        confparse.read(confparsenonovaconfigfile)
+        confparse.read(confparse.nonovaconfigfile)
         user = confparse.get("Credentials","user")
         password = confparse.get("Credentials","pass")
+        print "Success!"
         print "Your credentials are {} and {}".format(user, password)
         # Login to nova CLI using Credentials :D
         # Maybe a success message
