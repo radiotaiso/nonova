@@ -37,7 +37,7 @@ class NoNovaConfigParser(ConfigParser):
 def cli_parser():
     parser = ArgumentParser(description = """Command line helper for filling nova""")
     parser.add_argument("-c" " --config", dest="config", help="Config file", type=str)
-    parser.add_argument("-a" ,dest="activity", help="Print the activity arguments with ID",action="store_true")
+    parser.add_argument("-A" ,dest="activity", help="Print the activity arguments with ID",action="store_true")
 #    parser.add_argument("-P", "--de-proyectos",
     #help="Print your personal project arguments with ID, This requires CONF FILE ")
     parser.add_argument("--papu", dest="papu", default='saca el pack papu', action="store", type=str)
