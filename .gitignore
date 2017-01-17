@@ -89,5 +89,5 @@ ENV/
 .ropeproject
 
 # Config files with passwords and stuff (nonova)
-.conf
-.ini
+*.conf
+*.ini
