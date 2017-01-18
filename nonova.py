@@ -38,7 +38,7 @@ class NoNovaConfigParser(ConfigParser):
 def cli_parser():
     parser = ArgumentParser(description = """Command line helper for filling nova""")
     parser.add_argument("-c" " --config", dest="config", help="Config file", type=config)
-    parser.add_argument("-a" ,dest="action", help="Print the activity arguments with ID",action="store_const",const=activity)
+    parser.add_argument("-a" ,dest="activity", help="Print the activity arguments with ID",action="store_true")
 #    parser.add_argument("-P", "--de-proyectos",
     #help="Print your personal project arguments with ID, This requires CONF FILE ")
     parser.add_argument("--papu", dest="papu", default='saca el pack papu', action="store", type=str)
@@ -46,7 +46,7 @@ def cli_parser():
         parser.print_help()
         sys.exit(1)
     args = parser.parse_args()
-    #return args
+    return args
 
 def config():
     # Verify conf file exists, else create_cofig
@@ -66,10 +66,12 @@ def activity():
     print "------------------------------------"
     actividades = {1:"Coding",2:"Meeting w/Client",3:"Design",4:"Meeting",5:"Support",6:"Training",7:"Fix/Debug",8:"Project Hours",9:"Research",11:"Project Review",12:"Project Management",13:"Architect",14:"Testing / QA",15:"Estimation",16:"PTO",17:"Holiday",18:"Analysis",19:"UI Graphic Design",20:"Code Redesign",21:"iTexico MX Task",23:"Interviewing",24:"Recruting",25:"Documentation",26:"Environment Setup",27:"Technical Advising",28:"TL",29:"Vacation"}
     for key in actividades:
-        print key,"......",actividades[key]
+        print "{} ...... {}".format(key, actividades[key])
 
 def main():
-    cli_parser()
+    args = cli_parser()
+    if args.activity:
+        activity()
 
 if __name__ == "__main__":
-    sys.exit(cli_parser())
+    sys.exit(main())
