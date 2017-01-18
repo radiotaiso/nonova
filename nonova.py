@@ -30,6 +30,7 @@ class NoNovaConfigParser(ConfigParser):
             print "Remember use the -p option to fetch your projects! You only need to do this once!"
     def nonova_confirm_config(self):
             self.configp.read(self.nonovaconfigfile)
+
             self.userConfirm = self.configp.get("Credentials","user")
             self.passConfirm = self.configp.get("Credentials","pass")
             print "Success!"
@@ -62,8 +63,8 @@ def config(args):
         confparse.nonova_create_config()
     else:
         confparse.nonova_confirm_config()
+
 def update_projects(args):
-    # need logic here
 
 
 def activity():
