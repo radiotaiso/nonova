@@ -30,16 +30,21 @@ class NoNovaConfigParser(ConfigParser):
             print "Remember use the -p option to fetch your projects! You only need to do this once!"
     def nonova_confirm_config(self):
             self.configp.read(self.nonovaconfigfile)
-            userConfirm = self.configp.get("Credentials","user")
-            passConfirm = self.configp.get("Credentials","pass")
+            self.userConfirm = self.configp.get("Credentials","user")
+            self.passConfirm = self.configp.get("Credentials","pass")
             print "Success!"
             print "Your credentials are {} and {}".format(userConfirm, passConfirm)
+    def nonova_get_projects(self):
+            self.configp.read(self.nonovaconfigfile)
+            self.userConfirm = self.configp.get("Credentials","user")
+            self.passConfirm = self.configp.get("Credentials","pass")
 
 # --------- ends NoNovaConfigParser class -----------------
 
 def cli_parser():
     parser = ArgumentParser(description = """Command line helper for filling nova""")
-    parser.add_argument("-c" " --config", dest="config", help="Config file", type=str)
+    parser.add_argument("-c" " --config", dest="config", help="You must run this only the first time", type=str)
+    parser.add_argument("-p" " --project", dest="config", help="Update your project list", type=str)
     parser.add_argument("-A" ,dest="activity", help="Print the activity arguments with ID",action="store_true")
     # parser.add_argument("-P", "--de-proyectos",
     # help="Print your personal project arguments with ID, This requires CONF FILE ")
@@ -49,7 +54,7 @@ def cli_parser():
         sys.exit(1)
     args = parser.parse_args()
     return args
-
+# ---- Arg Parser Options! ------------------------------------------
 def config(args):
     # Verify conf file exists, else create_cofig
     confparse = NoNovaConfigParser(args.config)
@@ -57,6 +62,9 @@ def config(args):
         confparse.nonova_create_config()
     else:
         confparse.nonova_confirm_config()
+def update_projects(args):
+    # need logic here
+
 
 def activity():
     print "You will be required the activity ID"
@@ -64,13 +72,14 @@ def activity():
     actividades = {1:"Coding",2:"Meeting w/Client",3:"Design",4:"Meeting",5:"Support",6:"Training",7:"Fix/Debug",8:"Project Hours",9:"Research",11:"Project Review",12:"Project Management",13:"Architect",14:"Testing / QA",15:"Estimation",16:"PTO",17:"Holiday",18:"Analysis",19:"UI Graphic Design",20:"Code Redesign",21:"iTexico MX Task",23:"Interviewing",24:"Recruting",25:"Documentation",26:"Environment Setup",27:"Technical Advising",28:"TL",29:"Vacation"}
     for key in actividades:
         print "{} ...... {}".format(key, actividades[key])
-
+# ----- END Arg Parser Options ------------------------------------
 def main():
     args = cli_parser()
     if args.activity:
         activity()
     if args.config:
         config(args)
+
 
 if __name__ == "__main__":
     sys.exit(main())
