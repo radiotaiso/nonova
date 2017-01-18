@@ -32,7 +32,7 @@ class NoNovaConfigParser(ConfigParser):
             self.configp.set("Credentials","pass",self.password)
             with open(self.nonovaconfigfile, "wb") as config_file:
                 self.configp.write(config_file)
-            print "Finished mofo"
+            print "Config file created!"
 
 def cli_parser():
     parser = ArgumentParser(description = """Command line helper for filling nova""")
