@@ -58,14 +58,13 @@ def cli_parser():
 # ---- Arg Parser Options! ------------------------------------------
 def config(args):
     # Verify conf file exists, else create_cofig
-    confparse = NoNovaConfigParser(args.config)
     if not os.path.exists(confparse.nonovaconfigfile):
         confparse.nonova_create_config()
     else:
         confparse.nonova_confirm_config()
 
 def update_projects(args):
-
+    pass
 
 def activity():
     print "You will be required the activity ID"
@@ -75,7 +74,9 @@ def activity():
         print "{} ...... {}".format(key, actividades[key])
 # ----- END Arg Parser Options ------------------------------------
 def main():
+    global confparse
     args = cli_parser()
+    confparse = NoNovaConfigParser(args.config)
     if args.activity:
         activity()
     if args.config:
