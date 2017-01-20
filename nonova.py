@@ -45,13 +45,16 @@ class NoNovaConfigParser(ConfigParser):
             self.userConfirm = self.configp.get("Credentials","user")
             self.passConfirm = self.configp.get("Credentials","pass")
             self.osPlatform = self.configp.get("Credentials","os")
-            # if osPlatform == "Windows":
-            #     # Windows
-            # elif osPlatform == "Darwin":
-            #     # OSx
-            # elif osPlatform == "Linux" or "Linux2":
-                # Windows
-            #self.cliString = ""
+            self.pathToCli = ""
+            self.nnString = "{} /u {} /p {} projects".format(self.pathToCli,self.userConfirm,self.passConfirm)
+            if osPlatform == "Windows":
+                 self.pathToCli="/bin/win/nova-cli.exe"
+                 print self.nnString
+            elif osPlatform == "Darwin":
+                 pathToCli="/bin/osx/nova-cli"
+            elif osPlatform == "Linux" or "Linux2":
+                 pathToCli="/bin/linux"
+
 
 # --------- ends NoNovaConfigParser class -----------------
 # --------- Arg Parser arguments --------------------------
