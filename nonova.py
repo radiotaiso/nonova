@@ -7,6 +7,7 @@
 # -nova-cli? or will it be hosted in tchai? if tchai true, we need to make it public
 import os
 import sys
+import platform
 ## https://docs.python.org/2/library/configparser.html
 from configparser import ConfigParser
 from argparse import ArgumentParser
@@ -24,28 +25,40 @@ class NoNovaConfigParser(ConfigParser):
             self.configp.add_section("Credentials")
             self.configp.set("Credentials","user",self.user)
             self.configp.set("Credentials","pass",self.password)
+            self.osPlatform = ""
+            self.osPlatform = platform.system()
+            self.configp.set("Credentials","OS",self.osPlatform)
+
             with open(self.nonovaconfigfile, "wb") as config_file:
                 self.configp.write(config_file)
             print "Config file created!"
             print "Remember use the -p option to fetch your projects! You only need to do this once!"
     def nonova_confirm_config(self):
             self.configp.read(self.nonovaconfigfile)
-
+            print "File Found!"
             self.userConfirm = self.configp.get("Credentials","user")
             self.passConfirm = self.configp.get("Credentials","pass")
-            print "Success!"
-            print "Your credentials are {} and {}".format(userConfirm, passConfirm)
+            self.osPlatformC = self.configp.get("Credentials","os")
+            print "Your credentials are {} and {} and currently running on {}".format(self.userConfirm, self.passConfirm,self.osPlatformC)
     def nonova_get_projects(self):
             self.configp.read(self.nonovaconfigfile)
             self.userConfirm = self.configp.get("Credentials","user")
             self.passConfirm = self.configp.get("Credentials","pass")
+            self.osPlatform = self.configp.get("Credentials","os")
+            # if osPlatform == "Windows":
+            #     # Windows
+            # elif osPlatform == "Darwin":
+            #     # OSx
+            # elif osPlatform == "Linux" or "Linux2":
+                # Windows
+            #self.cliString = ""
 
 # --------- ends NoNovaConfigParser class -----------------
-
+# --------- Arg Parser arguments --------------------------
 def cli_parser():
     parser = ArgumentParser(description = """Command line helper for filling nova""")
     parser.add_argument("-c" " --config", dest="config", help="You must run this only the first time", type=str)
-    parser.add_argument("-p" " --project", dest="config", help="Update your project list", type=str)
+    parser.add_argument("-p" " --project", dest="getp", help="Update your project list", type=str)
     parser.add_argument("-A" ,dest="activity", help="Print the activity arguments with ID",action="store_true")
     # parser.add_argument("-P", "--de-proyectos",
     # help="Print your personal project arguments with ID, This requires CONF FILE ")
@@ -64,7 +77,12 @@ def config(args):
         confparse.nonova_confirm_config()
 
 def update_projects(args):
-    pass
+    if not os.path.exists(confparse.nonovaconfigfile):
+        print "config.ini was not found, you must create one first."
+        confparse.nonova_create_config()
+    else:
+        confparse.nonova_get_projects()
+
 
 def activity():
     print "You will be required the activity ID"
@@ -81,6 +99,8 @@ def main():
         activity()
     if args.config:
         config(args)
+    if args.getp:
+        update_projects(args)
 
 
 if __name__ == "__main__":
