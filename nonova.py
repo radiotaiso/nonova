@@ -77,14 +77,17 @@ def config(args):
     if not os.path.exists(confparse.nonovaconfigfile):
         confparse.nonova_create_config()
     else:
+        print confparse.nonovaconfigfile
         confparse.nonova_confirm_config()
 
 def update_projects(args):
-    if not os.path.exists(confparse.nonovaconfigfile):
-        print "config.ini was not found, you must create one first."
-        confparse.nonova_create_config()
-    else:
-        confparse.nonova_get_projects()
+    print "si entra al update_projects"
+    print confparse.nonovaconfigfile
+    # if not os.path.exists(confparse.nonovaconfigfile)::
+    #     print "config.ini was not found, you must create one first."
+    #     confparse.nonova_create_config()
+    # else:
+    #     confparse.nonova_get_projects()
 
 
 def activity():
@@ -97,7 +100,7 @@ def activity():
 def main():
     global confparse
     args = cli_parser()
-    confparse = NoNovaConfigParser(args.config)
+    confparse = NoNovaConfigParser(args)
     if args.activity:
         activity()
     if args.config:
