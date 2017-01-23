@@ -49,14 +49,14 @@ class NoNovaConfigParser(ConfigParser):
             self.passConfirm = self.configp.get("Credentials","pass")
             self.osPlatform = self.configp.get("Credentials","os")
             self.pathToCli = ""
-            self.nnString = "{} /u {} /p {} projects".format(self.pathToCli,self.userConfirm,self.passConfirm)
-            if osPlatform == "Windows":
-                 self.pathToCli="/bin/win/nova-cli.exe"
-                 print self.nnString
-            elif osPlatform == "Darwin":
-                 pathToCli="/bin/osx/nova-cli"
-            elif osPlatform == "Linux" or "Linux2":
-                 pathToCli="/bin/linux"
+            self.nnString = "{} /u {} /p {} projects".format(self.pathToCli,self.userConfirm,self.passConfirm,)
+            if self.osPlatform == "Windows":
+                 self.pathToCli="/bin/win/nova-cli.exe "
+                 print self.pathToCli+self.nnString
+            elif self.osPlatform == "Darwin":
+                 self.pathToCli="/bin/osx/nova-cli"
+            elif self.osPlatform == "Linux" or "Linux2":
+                 self.pathToCli="/bin/linux"
 # --------- ends NoNovaConfigParser class -----------------
 
 
@@ -85,13 +85,12 @@ def config(args):
         confparse.nonova_confirm_config()
 
 def update_projects(args):
-    print "si entra al update_projects"
-    print confparse.config_file
-    # if not os.path.exists(confparse.nonovaconfigfile)::
-    #     print "config.ini was not found, you must create one first."
-    #     confparse.nonova_create_config()
-    # else:
-    #     confparse.nonova_get_projects()
+    # Pulls projects by user bc everyone is different but should be treated the same <3 
+    if not os.path.exists(args.config):
+        print "config.ini was not found, you must create one first."
+        confparse.nonova_create_config()
+    else:
+        confparse.nonova_get_projects()
 
 
 def activity():
