@@ -63,7 +63,7 @@ class NoNovaConfigParser(ConfigParser):
 # --------- Arg Parser arguments --------------------------
 def cli_parser():
     parser = ArgumentParser(description = """Command line helper for filling nova""")
-    parser.add_argument("-c" " --config", dest="config", help="You must run this only the first time", type=str)
+    parser.add_argument("-c" " --config", dest="config", help="You must run this only the first time", type=str, default="config.ini")
     parser.add_argument("-p" " --project", dest="getp", help="Update your project list", action="store_true")
     parser.add_argument("-A" " --activity", dest="activity", help="Print the activity arguments with ID", action="store_true")
     # parser.add_argument("-P", "--de-proyectos",
