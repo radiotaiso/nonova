@@ -55,9 +55,12 @@ class NoNovaConfigParser(ConfigParser):
                  self.pathToCli="bin\\win\\nova-cli.exe"
                  self.fn = os.path.join(os.path.dirname(__file__), self.pathToCli) + self.nnString
                  print self.fn
-                 p = subprocess.Popen(self.fn)
-                 out, err = p.communicate()
-                 print out
+                 p = subprocess.check_output(self.fn).splitlines()
+                 for i in p:
+                     tab = {}
+                     print i.split("\t")
+
+
             elif self.osPlatform == "Darwin":
                  self.pathToCli="/bin/osx/nova-cli"
             elif self.osPlatform == "Linux" or "Linux2":
