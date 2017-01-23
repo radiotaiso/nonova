@@ -93,7 +93,15 @@ def update_projects(args):
 def activity():
     print "You will be required the activity ID"
     print "------------------------------------"
-    actividades = {1:"Coding",2:"Meeting w/Client",3:"Design",4:"Meeting",5:"Support",6:"Training",7:"Fix/Debug",8:"Project Hours",9:"Research",11:"Project Review",12:"Project Management",13:"Architect",14:"Testing / QA",15:"Estimation",16:"PTO",17:"Holiday",18:"Analysis",19:"UI Graphic Design",20:"Code Redesign",21:"iTexico MX Task",23:"Interviewing",24:"Recruting",25:"Documentation",26:"Environment Setup",27:"Technical Advising",28:"TL",29:"Vacation"}
+    actividades = {
+            1:"Coding",2:"Meeting w/Client",3:"Design",4:"Meeting",
+            5:"Support",6:"Training",7:"Fix/Debug",8:"Project Hours",
+            9:"Research",11:"Project Review",12:"Project Management",
+            13:"Architect",14:"Testing / QA",15:"Estimation",16:"PTO",
+            17:"Holiday",18:"Analysis",19:"UI Graphic Design",
+            20:"Code Redesign",21:"iTexico MX Task",23:"Interviewing",
+            24:"Recruting",25:"Documentation",26:"Environment Setup",
+            27:"Technical Advising",28:"TL",29:"Vacation"}
     for key in actividades:
         print "{} ...... {}".format(key, actividades[key])
 # ----- END Arg Parser Options ------------------------------------
