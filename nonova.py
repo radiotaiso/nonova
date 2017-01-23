@@ -8,6 +8,7 @@
 import os
 import sys
 import platform
+import subprocess
 ## https://docs.python.org/2/library/configparser.html
 from configparser import ConfigParser
 from argparse import ArgumentParser
@@ -49,10 +50,14 @@ class NoNovaConfigParser(ConfigParser):
             self.passConfirm = self.configp.get("Credentials","pass")
             self.osPlatform = self.configp.get("Credentials","os")
             self.pathToCli = ""
-            self.nnString = "{} /u {} /p {} projects".format(self.pathToCli,self.userConfirm,self.passConfirm,)
+            self.nnString = " /u {} /p {} projects".format(self.userConfirm, self.passConfirm)
             if self.osPlatform == "Windows":
-                 self.pathToCli="/bin/win/nova-cli.exe "
-                 print self.pathToCli+self.nnString
+                 self.pathToCli="bin\\win\\nova-cli.exe"
+                 self.fn = os.path.join(os.path.dirname(__file__), self.pathToCli) + self.nnString
+                 print self.fn
+                 p = subprocess.Popen(self.fn)
+                 out, err = p.communicate()
+                 print out
             elif self.osPlatform == "Darwin":
                  self.pathToCli="/bin/osx/nova-cli"
             elif self.osPlatform == "Linux" or "Linux2":
@@ -85,7 +90,7 @@ def config(args):
         confparse.nonova_confirm_config()
 
 def update_projects(args):
-    # Pulls projects by user bc everyone is different but should be treated the same <3 
+    # Pulls projects by user bc everyone is different but should be treated the same <3
     if not os.path.exists(args.config):
         print "config.ini was not found, you must create one first."
         confparse.nonova_create_config()
