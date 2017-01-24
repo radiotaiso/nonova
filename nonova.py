@@ -66,18 +66,23 @@ class NoNovaConfigParser(ConfigParser):
 # class Activity(Object):
 class Activity():
 
-    def __init__(self, papelito, Ticket=None):
+    def __init__(self, Project=None, Category=None, Ticket=None, Hours=None, Comment=None):
+        self.project = Project
+        self.category = Category
+        self.hours = Hours
         self.ticket = Ticket
+        self.comment = Comment
 
     def toString(self):
-        self.output = "{} /u {} / {} {}"
+        self.output = "add /P {} /t {} /c {}  {}".format(self.project, self.hours, self.category, self.comment)
         # cls.get_nova_cli_command()
         print self.output # "./nova-cli noseque nose que nose que"
 
-    def buildString():
-        self.configp.read(self.args.config)
-        self.userConfirm = self.configp.get("Credentials","user")
-        self.passConfirm = self.configp.get("Credentials","pass")
+    def insert_activity(self, pathToCli):
+        self.fn = pathToCli + self.output
+        p = subprocess.check_output(self.fn)
+        print p
+
 
 # ------------ ENDS Activity class
 def get_nova_cli_command(args):
@@ -107,9 +112,15 @@ def get_nova_cli_command(args):
 
 
 def new_activity(args):
-    ticket = raw_input("Usaras ticket?: ")
-    a = Activity(confparse, Ticket=ticket)
-    p = subprocess.check_output(a.toString())
+    project = raw_input("Project number?: ")
+    category = raw_input("Category number?: ")
+    hours = raw_input("Number of hours?: ")
+    ticket = raw_input("Ticket?: ")
+    comment = raw_input("Comment?: ")
+    global a
+    a = Activity(Project=project, Category=category, Hours=hours, Ticket=ticket, Comment=comment)
+    print a.toString()
+    a.insert_activity(get_nova_cli_command(args))
 
 # --------- Arg Parser arguments --------------------------
 def cli_parser():
@@ -138,12 +149,12 @@ def config(args):
 
 def update_projects(args):
     # Pulls projects by user bc everyone is different but should be treated the same <3
-    papelito = get_nova_cli_command(args)
+    nova_cli_path = get_nova_cli_command(args)
     if not os.path.exists(args.config):
         print "config.ini was not found, you must create one first."
         confparse.nonova_create_config()
     else:
-        confparse.nonova_get_projects(papelito)
+        confparse.nonova_get_projects(nova_cli_path)
 
 
 def activity():
