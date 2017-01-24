@@ -85,21 +85,23 @@ def get_nova_cli_command():
     confparse.configp.read(args.config)
     userConfirm = confparse.configp.get("Credentials","user")
     passConfirm = confparse.configp.get("Credentials","pass")
+    osPlatformC = confparse.configp.get("Credentials","os")
     pathToCli = ""
-    credentials = " /u{} /p{} ".format(userConfirm, passConfirm)
+    credentials = " /u {} /p {} ".format(userConfirm, passConfirm)
     # nnString = " /u {} /p {} projects".format(userConfirm, passConfirm)
-    # if osPlatform == "Windows":
-    pathToCli="bin\\win\\nova-cli.exe"
-    fn = os.path.join(os.path.dirname(__file__), pathToCli) + credentials
-    print fn ## Revisa si tenemos la direccion correcta
-        #  p = subprocess.check_output(fn).splitlines()
-        #  for i in p:
-        #      tab = {}
-        #      print i.split("\t")
-    # elif osPlatform == "Darwin":
-    #      pathToCli="/bin/osx/nova-cli"
-    # elif osPlatform == "Linux" or "Linux2":
-    #      pathToCli="/bin/linux"
+    if osPlatformC == "Windows":
+        pathToCli="bin\\win\\nova-cli.exe"
+        fn = os.path.join(os.path.dirname(__file__), pathToCli) + credentials
+        print fn ## Revisa si tenemos la direccion correcta
+    elif osPlatform == "Darwin":
+         pathToCli="bin\\osx\\nova-cli"
+         fn = os.path.join(os.path.dirname(__file__), pathToCli) + credentials
+         print fn ## Revisa si tenemos la direccion correcta
+    elif osPlatform == "Linux" or "Linux2":
+        fn = "Sorry dude, but trix es solo para chavos."
+        #  pathToCli="bin\\linux\\nova-cli"
+        #  fn = os.path.join(os.path.dirname(__file__), pathToCli) + credentials
+        #  print fn ## Revisa si tenemos la direccion correcta
 
     return fn # Nova-cli dependiendo del OS
 
