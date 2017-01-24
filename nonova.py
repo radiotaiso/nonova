@@ -67,13 +67,45 @@ class NoNovaConfigParser(ConfigParser):
                  self.pathToCli="/bin/linux"
 # --------- ends NoNovaConfigParser class -----------------
 
+# Activity class
+
+class Activity(Object):
+    def __init__(self, cls, Ticket=None):
+        self.ticket = Ticket
+
+    def toString(self):
+        self.output = "{} /u {} / {} {}"
+        cls.get_nova_cli_command()
+        print self.output # "./nova-cli noseque nose que nose que"
+
+
+def get_nova_cli_command():
+    if osPlatform == "Windows":
+         pathToCli="bin\\win\\nova-cli.exe"
+         fn = os.path.join(os.path.dirname(__file__), self.pathToCli) + self.nnString
+         print fn ## Revisa si tenemos la direccion correcta
+         p = subprocess.check_output(self.fn).splitlines()
+         for i in p:
+             tab = {}
+             print i.split("\t")
+    elif self.osPlatform == "Darwin":
+         self.pathToCli="/bin/osx/nova-cli"
+    elif self.osPlatform == "Linux" or "Linux2":
+         self.pathToCli="/bin/linux"
+    return string # Nova-cli dependiendo del OS
+
+def new_activity():
+    ticket = raw_input("Usaras ticket?: ")
+    a = Activity(confparse, Ticket=ticket)
+    p = subprocess.check_output(a.toString())
 
 # --------- Arg Parser arguments --------------------------
 def cli_parser():
     parser = ArgumentParser(description = """Command line helper for filling nova""")
     parser.add_argument("-c" " --config", dest="config", help="You must run this only the first time", type=str, default="config.ini")
     parser.add_argument("-p" " --project", dest="getp", help="Update your project list", action="store_true")
-    parser.add_argument("-A" " --activity", dest="activity", help="Print the activity arguments with ID", action="store_true")
+    parser.add_argument("-a" " --activity", dest="new_activity", help="Insert new activity", action="store_true")
+    parser.add_argument("-A", dest="from file", help="Reads activity from file", action="store_true")
     # parser.add_argument("-P", "--de-proyectos",
     # help="Print your personal project arguments with ID, This requires CONF FILE ")
     # parser.add_argument("--papu", dest="papu", help="summon papu" default="saca el pack papu", action="store", type=str)
@@ -98,7 +130,7 @@ def update_projects(args):
         print "config.ini was not found, you must create one first."
         confparse.nonova_create_config()
     else:
-        confparse.nonova_get_projects()
+        confparse.nonova_get_pojects()
 
 
 def activity():
@@ -121,11 +153,12 @@ def main():
     args = cli_parser()
     confparse = NoNovaConfigParser(args)
     if args.activity:
-        activity()
+        new_activity()
     if args.config:
         config(args)
     if args.getp:
         update_projects(args)
+
 
 
 if __name__ == "__main__":
