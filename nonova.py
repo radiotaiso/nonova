@@ -80,7 +80,7 @@ class Activity():
         self.passConfirm = self.configp.get("Credentials","pass")
 
 # ------------ ENDS Activity class
-def get_nova_cli_command():
+def get_nova_cli_command(args):
     # Que arme el string ya de una vez con user y pass por que es la misma mamada que el pathToCli
     confparse.configp.read(args.config)
     userConfirm = confparse.configp.get("Credentials","user")
@@ -106,7 +106,7 @@ def get_nova_cli_command():
     return fn # Nova-cli dependiendo del OS
 
 
-def new_activity():
+def new_activity(args):
     ticket = raw_input("Usaras ticket?: ")
     a = Activity(confparse, Ticket=ticket)
     p = subprocess.check_output(a.toString())
@@ -138,12 +138,12 @@ def config(args):
 
 def update_projects(args):
     # Pulls projects by user bc everyone is different but should be treated the same <3
-    papelito = get_nova_cli_command()
+    papelito = get_nova_cli_command(args)
     if not os.path.exists(args.config):
         print "config.ini was not found, you must create one first."
         confparse.nonova_create_config()
     else:
-        confparse.nonova_get_pojects(papelito)
+        confparse.nonova_get_projects(papelito)
 
 
 def activity():
@@ -165,8 +165,8 @@ def main():
     global confparse
     args = cli_parser()
     confparse = NoNovaConfigParser(args)
-    if args.activity:
-        new_activity()
+    if args.new_activity:
+        new_activity(args)
     if args.config:
         config(args)
     if args.getp:
