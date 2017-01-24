@@ -19,6 +19,7 @@ class NoNovaConfigParser(ConfigParser):
         self.args = args
         self.config_file = args.config
 
+
     def nonova_create_config(self):
         print ("Creating new text file...")
         print ("-------------------------")
@@ -44,55 +45,64 @@ class NoNovaConfigParser(ConfigParser):
             self.osPlatformC = self.configp.get("Credentials","os")
             print "Your credentials are {} and {} and currently running on {}".format(self.userConfirm, self.passConfirm,self.osPlatformC)
 
-    def nonova_get_projects(self):
+    def nonova_get_projects(self,pathToCli): # Gets projects from configured credentials
             self.configp.read(self.args.config)
             self.userConfirm = self.configp.get("Credentials","user")
             self.passConfirm = self.configp.get("Credentials","pass")
-            self.osPlatform = self.configp.get("Credentials","os")
-            self.pathToCli = ""
+            # self.pathToCli = ""
             self.nnString = " /u {} /p {} projects".format(self.userConfirm, self.passConfirm)
-            if self.osPlatform == "Windows":
-                 self.pathToCli="bin\\win\\nova-cli.exe"
-                 self.fn = os.path.join(os.path.dirname(__file__), self.pathToCli) + self.nnString
-                 print self.fn
-                 p = subprocess.check_output(self.fn).splitlines()
-                 for i in p:
-                     tab = {}
-                     print i.split("\t")
+                #  self.pathToCli="bin\\win\\nova-cli.exe"
+            self.fn = os.path.join(os.path.dirname(__file__),pathToCli) + self.nnString
+            print self.fn
+            p = subprocess.check_output(self.fn).splitlines()
+            for i in p:
+                tab = {}
+                print i.split("\t")
 
-
-            elif self.osPlatform == "Darwin":
-                 self.pathToCli="/bin/osx/nova-cli"
-            elif self.osPlatform == "Linux" or "Linux2":
-                 self.pathToCli="/bin/linux"
 # --------- ends NoNovaConfigParser class -----------------
 
 # Activity class
 
-class Activity(Object):
-    def __init__(self, cls, Ticket=None):
+# class Activity(Object):
+class Activity():
+
+    def __init__(self, papelito, Ticket=None):
         self.ticket = Ticket
 
     def toString(self):
         self.output = "{} /u {} / {} {}"
-        cls.get_nova_cli_command()
+        # cls.get_nova_cli_command()
         print self.output # "./nova-cli noseque nose que nose que"
 
+    def buildString():
+        self.configp.read(self.args.config)
+        self.userConfirm = self.configp.get("Credentials","user")
+        self.passConfirm = self.configp.get("Credentials","pass")
 
+# ------------ ENDS Activity class
 def get_nova_cli_command():
-    if osPlatform == "Windows":
-         pathToCli="bin\\win\\nova-cli.exe"
-         fn = os.path.join(os.path.dirname(__file__), self.pathToCli) + self.nnString
-         print fn ## Revisa si tenemos la direccion correcta
-         p = subprocess.check_output(self.fn).splitlines()
-         for i in p:
-             tab = {}
-             print i.split("\t")
-    elif self.osPlatform == "Darwin":
-         self.pathToCli="/bin/osx/nova-cli"
-    elif self.osPlatform == "Linux" or "Linux2":
-         self.pathToCli="/bin/linux"
-    return string # Nova-cli dependiendo del OS
+    # Que arme el string ya de una vez con user y pass por que es la misma mamada que el pathToCli
+    confparse.configp.read(args.config)
+    userConfirm = confparse.configp.get("Credentials","user")
+    passConfirm = confparse.configp.get("Credentials","pass")
+    pathToCli = ""
+    credentials = " /u{} /p{} ".format(userConfirm, passConfirm)
+    # nnString = " /u {} /p {} projects".format(userConfirm, passConfirm)
+    # if osPlatform == "Windows":
+    pathToCli="bin\\win\\nova-cli.exe"
+    fn = os.path.join(os.path.dirname(__file__), pathToCli) + credentials
+    print fn ## Revisa si tenemos la direccion correcta
+        #  p = subprocess.check_output(fn).splitlines()
+        #  for i in p:
+        #      tab = {}
+        #      print i.split("\t")
+    # elif osPlatform == "Darwin":
+    #      pathToCli="/bin/osx/nova-cli"
+    # elif osPlatform == "Linux" or "Linux2":
+    #      pathToCli="/bin/linux"
+
+    return fn # Nova-cli dependiendo del OS
+
 
 def new_activity():
     ticket = raw_input("Usaras ticket?: ")
@@ -126,11 +136,12 @@ def config(args):
 
 def update_projects(args):
     # Pulls projects by user bc everyone is different but should be treated the same <3
+    papelito = get_nova_cli_command()
     if not os.path.exists(args.config):
         print "config.ini was not found, you must create one first."
         confparse.nonova_create_config()
     else:
-        confparse.nonova_get_pojects()
+        confparse.nonova_get_pojects(papelito)
 
 
 def activity():
