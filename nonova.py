@@ -18,6 +18,7 @@ class NoNovaConfigParser(ConfigParser):
         self.configp = ConfigParser()
         self.args = args
         self.config_file = args.config
+        self.osPlatform = platform.system()
 
 
     def nonova_create_config(self):
@@ -29,8 +30,6 @@ class NoNovaConfigParser(ConfigParser):
         self.configp.add_section("Credentials")
         self.configp.set("Credentials","user",self.user)
         self.configp.set("Credentials","pass",self.password)
-        self.osPlatform = ""
-        self.osPlatform = platform.system()
         self.configp.set("Credentials","OS",self.osPlatform)
         with open(self.args.config, "wb") as config_file:
             self.configp.write(config_file)
