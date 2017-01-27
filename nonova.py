@@ -49,13 +49,13 @@ class NoNovaConfigParser(ConfigParser):
             self.userConfirm = self.configp.get("Credentials","user")
             self.passConfirm = self.configp.get("Credentials","pass")
             # self.pathToCli = ""
-            self.nnString = " /u {} /p {} projects".format(self.userConfirm, self.passConfirm)
+            #self.nnString = " /u {} /p {} projects".format(self.userConfirm, self.passConfirm)
                 #  self.pathToCli="bin\\win\\nova-cli.exe"
-            print self.nnString
-            raw_input
-            self.fn = os.path.join(os.path.dirname(__file__),pathToCli) + self.nnString
+            #print self.nnString
+            #raw_input
+            self.fn = os.path.join(os.path.dirname(__file__),pathToCli) + " projects"
             print self.fn
-            raw_input
+            #raw_input
             if self.osPlatform == "Darwin":
                 call(self.fn, shell=True)
             else:
