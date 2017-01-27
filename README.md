@@ -7,6 +7,8 @@ Nonova uses nova-cli to input items in Nova easy, quick and painless from your f
 Version 1 is almost ready and in continious development
 (not as quick as we'd like but hey we have work to do besides this `¯\_(ツ)_/¯`)
 
+OSx seems to be having issues, this is the main focus right now.
+
 ### Prerequisites
 
 + Python 2.x
@@ -23,7 +25,7 @@ After cloning and installing go to the project's folder and run:
 ```python
 python nonova.py -c config.ini
 ```
-Follow the steps to provide your credentials (which will be stored locally on the same folder)
+Follow the steps to provide your Nova credentials (which will be stored locally on the same folder)
 this will also get your OS in order to use the right compliled nova-cli.
 
 You can query your assigned projects using:
