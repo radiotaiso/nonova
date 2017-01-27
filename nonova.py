@@ -112,20 +112,24 @@ def get_nova_cli_command(args):
 
 
 def new_activity(args):
-    project = raw_input("Project number?: ")
-    category = raw_input("Category number?: ")
-    hours = raw_input("Number of hours?: ")
-    ticket = raw_input("Ticket?: ")
-    comment = raw_input("Comment?: ")
     global a
-    a = Activity(Project=project, Category=category, Hours=hours, Ticket=ticket, Comment=comment)
-    print a.toString()
-    a.insert_activity(get_nova_cli_command(args))
+    another = "y"
+    while raw_input("Add another [y/n]?:").lower().strip()[0] == "y":
+        project = raw_input("Project number?: ")
+        category = raw_input("Category number?: ")
+        hours = raw_input("Number of hours?: ")
+        #ticket = raw_input("Ticket?: ")
+        comment = raw_input("Comment?: ")
+        a = Activity(Project=project, Category=category, Hours=hours, Ticket=ticket, Comment=comment)
+        print a.toString()
+        a.insert_activity(get_nova_cli_command(args))
+
 
 # --------- Arg Parser arguments --------------------------
 def cli_parser():
     parser = ArgumentParser(description = """Command line helper for filling nova""")
     parser.add_argument("-c" " --config", dest="config", help="You must run this only the first time", type=str, default="config.ini")
+    parser.add_argument("-C" " --category", dest="category", help="Show categories of activities", action="store_true")
     parser.add_argument("-p" " --project", dest="getp", help="Update your project list", action="store_true")
     parser.add_argument("-a" " --activity", dest="new_activity", help="Insert new activity", action="store_true")
     parser.add_argument("-A", dest="from file", help="Reads activity from file", action="store_true")
@@ -157,7 +161,7 @@ def update_projects(args):
         confparse.nonova_get_projects(nova_cli_path)
 
 
-def activity():
+def category():
     print "You will be required the activity ID"
     print "------------------------------------"
     actividades = {
@@ -182,6 +186,8 @@ def main():
         config(args)
     if args.getp:
         update_projects(args)
+    if args.category:
+        category()
 
 
 
