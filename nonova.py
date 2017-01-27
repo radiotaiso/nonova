@@ -55,7 +55,7 @@ class NoNovaConfigParser(ConfigParser):
             self.fn = os.path.join(os.path.dirname(__file__),pathToCli) + self.nnString
             if self.osPlatform == "Darwin":
                 print self.fn
-            elif:
+            else:
                 print self.fn
                 p = subprocess.check_output(self.fn).splitlines()
                 for i in p:
