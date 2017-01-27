@@ -96,11 +96,11 @@ def get_nova_cli_command(args):
         pathToCli="bin\\win\\nova-cli.exe"
         fn = os.path.join(os.path.dirname(__file__), pathToCli) + credentials
         print fn ## Revisa si tenemos la direccion correcta
-    elif osPlatform == "Darwin":
-         pathToCli="bin\\osx\\nova-cli"
+    elif osPlatformC == "Darwin":
+         pathToCli="bin/osx/nova-cli"
          fn = os.path.join(os.path.dirname(__file__), pathToCli) + credentials
          print fn ## Revisa si tenemos la direccion correcta
-    elif osPlatform == "Linux" or "Linux2":
+    elif osPlatformC == "Linux" or "Linux2":
         fn = "Sorry dude, but trix es solo para chavos."
         #  pathToCli="bin\\linux\\nova-cli"
         #  fn = os.path.join(os.path.dirname(__file__), pathToCli) + credentials
