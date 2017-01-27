@@ -9,6 +9,7 @@ import os
 import sys
 import platform
 import subprocess
+from subprocess import call
 from configparser import ConfigParser
 from argparse import ArgumentParser
 
@@ -52,11 +53,14 @@ class NoNovaConfigParser(ConfigParser):
             self.nnString = " /u {} /p {} projects".format(self.userConfirm, self.passConfirm)
                 #  self.pathToCli="bin\\win\\nova-cli.exe"
             self.fn = os.path.join(os.path.dirname(__file__),pathToCli) + self.nnString
-            print self.fn
-            p = subprocess.check_output(self.fn).splitlines()
-            for i in p:
-                tab = {}
-                print i.split("\t")
+            if self.osPlatform == "Darwin":
+                print self.fn
+            elif:
+                print self.fn
+                p = subprocess.check_output(self.fn).splitlines()
+                for i in p:
+                    tab = {}
+                    print i.split("\t")
 
 # --------- ends NoNovaConfigParser class -----------------
 
