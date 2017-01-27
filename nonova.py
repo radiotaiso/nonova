@@ -9,7 +9,6 @@ import os
 import sys
 import platform
 import subprocess
-## https://docs.python.org/2/library/configparser.html
 from configparser import ConfigParser
 from argparse import ArgumentParser
 
@@ -61,8 +60,6 @@ class NoNovaConfigParser(ConfigParser):
 
 # --------- ends NoNovaConfigParser class -----------------
 
-# Activity class
-
 # class Activity(Object):
 class Activity():
 
@@ -76,24 +73,25 @@ class Activity():
     def toString(self):
         self.output = "add /P {} /t {} /c {}  {}".format(self.project, self.hours, self.category, self.comment)
         # cls.get_nova_cli_command()
-        print self.output # "./nova-cli noseque nose que nose que"
+        print self.output
 
     def insert_activity(self, pathToCli):
         self.fn = pathToCli + self.output
         p = subprocess.check_output(self.fn)
         print p
 
-
 # ------------ ENDS Activity class
+
+
+# This fucntion sets your path to nova-cli depending on your OS and appends your credentials to the base string
+# In the end will be something like "/bin/windows/nova-cli /u user@itexico.net /p password1" so you just use append the instruction you want.
 def get_nova_cli_command(args):
-    # Que arme el string ya de una vez con user y pass por que es la misma mamada que el pathToCli
     confparse.configp.read(args.config)
     userConfirm = confparse.configp.get("Credentials","user")
     passConfirm = confparse.configp.get("Credentials","pass")
     osPlatformC = confparse.configp.get("Credentials","os")
     pathToCli = ""
     credentials = " /u {} /p {} ".format(userConfirm, passConfirm)
-    # nnString = " /u {} /p {} projects".format(userConfirm, passConfirm)
     if osPlatformC == "Windows":
         pathToCli="bin\\win\\nova-cli.exe"
         fn = os.path.join(os.path.dirname(__file__), pathToCli) + credentials
@@ -108,19 +106,24 @@ def get_nova_cli_command(args):
         #  fn = os.path.join(os.path.dirname(__file__), pathToCli) + credentials
         #  print fn ## Revisa si tenemos la direccion correcta
 
-    return fn # Nova-cli dependiendo del OS
+    return fn
 
 
 def new_activity(args):
     global a
     another = "y"
+    a = Activity()
     while raw_input("Add another [y/n]?:").lower().strip()[0] == "y":
-        project = raw_input("Project number?: ")
-        category = raw_input("Category number?: ")
-        hours = raw_input("Number of hours?: ")
+        project = raw_input("Project number?[{}]: ".format(a.project)) or a.project
+        # projectP = project
+        category = raw_input("Category number?[{}]: ".format(a.category)) or a.category
+        # categoryP = category
+        hours = raw_input("Number of hours?[{}]: ".format(a.hours)) or a.hours
+        # hoursP = hours
         #ticket = raw_input("Ticket?: ")
-        comment = raw_input("Comment?: ")
-        a = Activity(Project=project, Category=category, Hours=hours, Ticket=ticket, Comment=comment)
+        comment = raw_input("Comment?[{}]: ".format(a.comment)) or a.comment
+        # comment = commentP
+        a = Activity(Project=project, Category=category, Hours=hours, Comment=comment)
         print a.toString()
         a.insert_activity(get_nova_cli_command(args))
 
