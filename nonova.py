@@ -42,6 +42,7 @@ def main():
         print("Get categories")
     elif args.config:
         print("Config file")
+        print(args.config)
 
 
 
