@@ -3,13 +3,23 @@ from configparser import ConfigParser
 
 class NoNovaConfigParser(ConfigParser):
     def __init__(self, args):
-        super(configparser, self).__init__()
+        ConfigParser.__init__(self)
+        print("slf")
         self.args = args
         self.config_file = args.config
-        self.osPlatform = platform.system()
+        self.osPlatform = ""
+        self.user = ""
+        self.password = ""
+        self._check_config()
 
+    def _check_config(self):
+        print(self.args.config)
+        if self.read(self.args.config):
+            print("Yes")
+        else:
+            self._create_config()
 
-    def nonova_create_config(self):
+    def _create_config(self):
         print ("Creating new text file...")
         print ("-------------------------")
         self.user = raw_input("What's your username?: ")
@@ -20,11 +30,13 @@ class NoNovaConfigParser(ConfigParser):
         self.set("Credentials","pass",self.password)
         self.set("Credentials","OS",self.osPlatform)
         with open(self.args.config, "wb") as config_file:
-            self.write(config_file)
-        print "Config file created!"
-        print "Remember use the -p option to fetch your projects! You only need to do this once!"
+            try:
+                self.write(config_file)
+            finally:
+                print "Config file created!"
+                print "Remember use the -p option to fetch your projects! You only need to do this once!"
 
-    def nonova_confirm_config(self):
+    def confirm_config(self):
             self.read(self.args.config)
             print "File Found!"
             self.userConfirm = self.get("Credentials","user")
@@ -32,7 +44,7 @@ class NoNovaConfigParser(ConfigParser):
             self.osPlatformC = self.get("Credentials","os")
             print "Your credentials are {} and {} and currently running on {}".format(self.userConfirm, self.passConfirm,self.osPlatformC)
 
-    def nonova_get_projects(self,pathToCli): # Gets projects from configured credentials
+    def get_projects(self,pathToCli): # Gets projects from configured credentials
             self.read(self.args.config)
             self.userConfirm = self.get("Credentials","user")
             self.passConfirm = self.get("Credentials","pass")
@@ -49,3 +61,8 @@ class NoNovaConfigParser(ConfigParser):
                     print i.split("\t")
 
 # --------- ends NoNovaConfigParser class -----------------
+
+
+class NovaCliConn(self):
+    def __init__(self):
+        self.nova_path = 
