@@ -2,7 +2,6 @@ import sys
 import subprocess
 from configparser import ConfigParser
 
-
 class NoNovaConfigParser(ConfigParser):
     def __init__(self, args):
         ConfigParser.__init__(self)
@@ -18,7 +17,7 @@ class NoNovaConfigParser(ConfigParser):
         print(self.args.config)
         if self.read(self.args.config):
             # self.read(self.args.config)
-            print "File Found!"
+            print "Reading file..."
             self.userConfirm = self.get("Credentials","user")
             self.passConfirm = self.get("Credentials","pass")
             self.osPlatformC = self.get("Credentials","os")
@@ -41,9 +40,8 @@ class NoNovaConfigParser(ConfigParser):
                 self.write(config_file)
             finally:
                 print("Config file created!")
-                print("Remember use the -p option to fetch your projects! You only need to do this once!")
+                print("Remember use the -p and -a option to fetch projects with corresponding IDs.")
 # --------- ends NoNovaConfigParser class -----------------
-
 
 class NovaCliConn():
     def __init__(self, conffile):
@@ -77,7 +75,6 @@ class Activity():
 
     def toString(self):
         return "add /P {} /t {} /c {}  {}".format(self.project, self.hours, self.category, self.comment)
-
 
     def insert_activity(self, pathToCli):
         self.fn = pathToCli + self.output

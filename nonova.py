@@ -20,40 +20,34 @@ from classer import Activity
 def cli_parser():
     parser = ArgumentParser(description = """Command line helper for filling nova""")
     parser.add_argument("-c" " --config", dest="config", help="You must run this only the first time", type=str, default="config.ini")
-    parser.add_argument("-C" " --category", dest="category", help="Show categories of activities", action="store_true")
-    parser.add_argument("-p" " --project", dest="getp", help="Update your project list", action="store_true")
-    parser.add_argument("-a" " --activity", dest="new_activity", help="Insert new activity", action="store_true")
-    parser.add_argument("-A", dest="from file", help="Reads activity from file", action="store_true")
-    # parser.add_argument("-P", "--de-proyectos",
-    # help="Print your personal project arguments with ID, This requires CONF FILE ")
-    # parser.add_argument("--papu", dest="papu", help="summon papu" default="saca el pack papu", action="store", type=str)
+    parser.add_argument("-C" " --category", dest="category", help="Show categories available", action="store_true")
+    parser.add_argument("-p" " --project", dest="getp", help="Show your project list", action="store_true")
+    parser.add_argument("-a" " --activity", dest="new_activity", help="Insert new set of activities", action="store_true")
+    parser.add_argument("-A", dest="from file", help="Reads activity from file --UNAVAILABLE", action="store_true")
+
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit(1)
     args = parser.parse_args()
     return args
 
+# Need to rewrite this when you´re not an effin zombie
 def new_activity():
     global a
     another = "y"
     a = Activity()
     while raw_input("Add another [y/n]?:").lower().strip()[0] == "y":
         project = raw_input("Project number?[{}]: ".format(a.project)) or a.project
-        # projectP = project
         category = raw_input("Category number?[{}]: ".format(a.category)) or a.category
-        # categoryP = category
         hours = raw_input("Number of hours?[{}]: ".format(a.hours)) or a.hours
-        # hoursP = hours
-        #ticket = raw_input("Ticket?: ")
         comment = raw_input("Comment?[{}]: ".format(a.comment)) or a.comment
-        # comment = commentP
         a = Activity(Project=project, Category=category, Hours=hours, Comment=comment)
         backend.execute(a.toString())
 
-def get_projects():
+def get_projects(): # Only changes the word to send
     backend.execute("projects")
 
-def get_categories():
+def get_categories(): # Should we be saving this in the .ini file? To avoid requiring it from nova each time and quicker printing.
     backend.execute("categories")
 
 def main():
