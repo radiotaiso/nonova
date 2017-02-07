@@ -58,7 +58,7 @@ class NovaCliConn():
     def check_os(self):
         if sys.platform == ("win32" or "Windows" or "win64"):
             return "bin\\win\\nova-cli.exe"
-        elif sys.platform == "Darwin":
+        elif sys.platform == "darwin":
             return "bin/osx/nova-cli"
         elif sys.platform == "Linux" or "Linux2":
             return "Sorry dude, but trix es solo para chavos."
