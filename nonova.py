@@ -14,6 +14,7 @@ from configparser import ConfigParser
 from argparse import ArgumentParser
 from classer import NoNovaConfigParser
 from classer import NovaCliConn
+from classer import Activity
 
 # --------- Arg Parser arguments --------------------------
 def cli_parser():
@@ -33,7 +34,21 @@ def cli_parser():
     return args
 
 def new_activity():
-    backend.execute("add")
+    global a
+    another = "y"
+    a = Activity()
+    while raw_input("Add another [y/n]?:").lower().strip()[0] == "y":
+        project = raw_input("Project number?[{}]: ".format(a.project)) or a.project
+        # projectP = project
+        category = raw_input("Category number?[{}]: ".format(a.category)) or a.category
+        # categoryP = category
+        hours = raw_input("Number of hours?[{}]: ".format(a.hours)) or a.hours
+        # hoursP = hours
+        #ticket = raw_input("Ticket?: ")
+        comment = raw_input("Comment?[{}]: ".format(a.comment)) or a.comment
+        # comment = commentP
+        a = Activity(Project=project, Category=category, Hours=hours, Comment=comment)
+        backend.execute(a.toString())
 
 def get_projects():
     backend.execute("projects")

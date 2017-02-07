@@ -65,6 +65,26 @@ class NovaCliConn():
         elif sys.platform == "Linux" or "Linux2":
             return "Sorry dude, but trix es solo para chavos."
 
+# class Activity(Object):
+class Activity():
+
+    def __init__(self, Project=None, Category=None, Ticket=None, Hours=None, Comment=None):
+        self.project = Project
+        self.category = Category
+        self.hours = Hours
+        self.ticket = Ticket
+        self.comment = Comment
+
+    def toString(self):
+        return "add /P {} /t {} /c {}  {}".format(self.project, self.hours, self.category, self.comment)
+
+
+    def insert_activity(self, pathToCli):
+        self.fn = pathToCli + self.output
+        p = subprocess.check_output(self.fn)
+        print p
+
+# ------------ ENDS Activity class
 
 # def get_projects(self,pathToCli): # Gets projects from configured credentials
 #         self.read(self.args.config)
