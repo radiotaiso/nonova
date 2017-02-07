@@ -1,3 +1,5 @@
+import sys
+import subprocess
 from configparser import ConfigParser
 
 
@@ -7,7 +9,7 @@ class NoNovaConfigParser(ConfigParser):
         print("slf")
         self.args = args
         self.config_file = args.config
-        self.osPlatform = ""
+        self.osPlatform = sys.platform
         self.user = ""
         self.password = ""
         self._check_config()
@@ -15,7 +17,12 @@ class NoNovaConfigParser(ConfigParser):
     def _check_config(self):
         print(self.args.config)
         if self.read(self.args.config):
-            print("Yes")
+            # self.read(self.args.config)
+            print "File Found!"
+            self.userConfirm = self.get("Credentials","user")
+            self.passConfirm = self.get("Credentials","pass")
+            self.osPlatformC = self.get("Credentials","os")
+            print "Your credentials are {} and {} and currently running on {}".format(self.userConfirm, self.passConfirm,self.osPlatformC)
         else:
             self._create_config()
 
@@ -33,36 +40,44 @@ class NoNovaConfigParser(ConfigParser):
             try:
                 self.write(config_file)
             finally:
-                print "Config file created!"
-                print "Remember use the -p option to fetch your projects! You only need to do this once!"
-
-    def confirm_config(self):
-            self.read(self.args.config)
-            print "File Found!"
-            self.userConfirm = self.get("Credentials","user")
-            self.passConfirm = self.get("Credentials","pass")
-            self.osPlatformC = self.get("Credentials","os")
-            print "Your credentials are {} and {} and currently running on {}".format(self.userConfirm, self.passConfirm,self.osPlatformC)
-
-    def get_projects(self,pathToCli): # Gets projects from configured credentials
-            self.read(self.args.config)
-            self.userConfirm = self.get("Credentials","user")
-            self.passConfirm = self.get("Credentials","pass")
-            self.fn = os.path.join(os.path.dirname(__file__),pathToCli) + " projects"
-            print self.fn
-            #raw_input
-            if self.osPlatform == "Darwin":
-                call(self.fn, shell=True)
-            else:
-                print self.fn
-                p = subprocess.check_output(self.fn).splitlines()
-                for i in p:
-                    tab = {}
-                    print i.split("\t")
-
+                print("Config file created!")
+                print("Remember use the -p option to fetch your projects! You only need to do this once!")
 # --------- ends NoNovaConfigParser class -----------------
 
 
-class NovaCliConn(self):
-    def __init__(self):
-        self.nova_path = 
+class NovaCliConn():
+    def __init__(self, conffile):
+        self.confile = conffile
+        self.path = self.check_os()
+        self.user = conffile.get("Credentials", "user")
+        self.pwd = conffile.get("Credentials", "pass")
+
+    def execute(self, command):
+        self.payload = "{} {} /u {} /p {}".format(self.path, command, self.user, self.pwd)
+        output = subprocess.check_output(self.payload, shell=True)
+        print(output)
+
+    def check_os(self):
+        if sys.platform == ("win32" or "Windows" or "win64"):
+            return "bin\\win\\nova-cli.exe"
+        elif sys.platform == "Darwin":
+            return "bin/osx/nova-cli"
+        elif sys.platform == "Linux" or "Linux2":
+            return "Sorry dude, but trix es solo para chavos."
+
+
+# def get_projects(self,pathToCli): # Gets projects from configured credentials
+#         self.read(self.args.config)
+#         self.userConfirm = self.get("Credentials","user")
+#         self.passConfirm = self.get("Credentials","pass")
+#         self.fn = os.path.join(os.path.dirname(__file__),pathToCli) + " projects"
+#         print self.fn
+#         #raw_input
+#         if self.osPlatform == "Darwin":
+#             call(self.fn, shell=True)
+#         else:
+#             print self.fn
+#             p = subprocess.check_output(self.fn).splitlines()
+#             for i in p:
+#                 tab = {}
+#                 print i.split("\t")

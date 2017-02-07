@@ -13,6 +13,7 @@ from subprocess import call
 from configparser import ConfigParser
 from argparse import ArgumentParser
 from classer import NoNovaConfigParser
+from classer import NovaCliConn
 
 # --------- Arg Parser arguments --------------------------
 def cli_parser():
@@ -31,20 +32,32 @@ def cli_parser():
     args = parser.parse_args()
     return args
 
+def new_activity():
+    backend.execute("add")
+
+def get_projects():
+    backend.execute("projects")
+
+def get_categories():
+    backend.execute("categories")
+
 def main():
+    global novaconf
+    global backend
+    #Parse teh world (one command line at a time)
     args = cli_parser()
+    # Read config file, if not, create one.
     novaconf = NoNovaConfigParser(args)
+    # Ensure connection to nova-cli backend
+    backend = NovaCliConn(novaconf)
+    # Choose your destiny
+
     if args.new_activity:
-        print("New activity")
+        new_activity()
     elif args.getp:
-        print("Get projects")
+        get_projects()
     elif args.category:
-        print("Get categories")
-    elif args.config:
-        print("Config file")
-        print(args.config)
-
-
+        get_categories()
 
 if __name__ == "__main__":
     sys.exit(main())
