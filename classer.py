@@ -17,11 +17,11 @@ class NoNovaConfigParser(ConfigParser):
         print(self.args.config)
         if self.read(self.args.config):
             # self.read(self.args.config)
-            print "Reading file..."
+            print ("Reading file...")
             self.userConfirm = self.get("Credentials","user")
             self.passConfirm = self.get("Credentials","pass")
             self.osPlatformC = self.get("Credentials","os")
-            print "Your credentials are {} and {} and currently running on {}".format(self.userConfirm, self.passConfirm,self.osPlatformC)
+            print ("Your credentials are {} and {} and currently running on {}".format(self.userConfirm, self.passConfirm,self.osPlatformC))
         else:
             self._create_config()
 
@@ -79,7 +79,7 @@ class Activity():
     def insert_activity(self, pathToCli):
         self.fn = pathToCli + self.output
         p = subprocess.check_output(self.fn)
-        print p
+        print (p)
 
 # ------------ ENDS Activity class
 
