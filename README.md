@@ -31,17 +31,20 @@ You can query your assigned projects using:
 python nonova.py -p
 ```
 
-To add a new item to your nova you just need to run:
-```
-python nonova.py -a
-```
-And provide the information requested, after the first item entered previous options given will be set as default
-so if you just press `enter` it will use the bracketed information.
-
 To get the list of categories for the task run:
 ```
 python nonova.py -C
 ```
+
+To add a new item to your nova you just need to run:
+```
+python nonova.py -a
+```
+
+And provide the information requested, after the first item entered previous options given will be set as default
+so if you just press `enter` it will use the bracketed information.
+
+
 
 ## Everything else
 General extra information for reference or whatever you want it to be.
@@ -64,5 +67,5 @@ General extra information for reference or whatever you want it to be.
 
 This project is licensed under the GPL-3.0 - see the [LICENSE.md](LICENSE.md) file for details
 
-#### Wow
+#### Such wow
 Did you really read everything? that's pretty cool!
