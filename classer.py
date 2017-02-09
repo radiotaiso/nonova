@@ -62,14 +62,14 @@ class NovaCliConn():
         if sys.platform == ("win32" or "Windows" or "win64"):
             return "\\bin\\win\\nova-cli.exe"
         elif sys.platform == "darwin":
-            return "bin/osx/nova-cli"
+            return "/bin/osx/nova-cli"
         elif sys.platform == "Linux" or "Linux2":
             return "Sorry dude, but trix es solo para chavos."
 
     def test_exec(self, command): #Just prints, no real input to nova-cli
         self.payload = "{} {} /u {} /p {}".format(self.path, command, self.user, self.pwd)
         print (self.payload)
-        
+
 # class Activity(Object):
 class Activity():
 
