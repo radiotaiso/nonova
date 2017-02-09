@@ -1,4 +1,5 @@
 #!/bin/python
+# -*- coding: utf-8 -*-
 
 #PREREQUISITES TO RUN THIS THING
 # -Python27
@@ -31,18 +32,30 @@ def cli_parser():
     args = parser.parse_args()
     return args
 
-# Need to rewrite this when you´re not an effin zombie
 def new_activity():
-    global a
-    another = "y"
+    # global a
     a = Activity()
-    while raw_input("Add another [y/n]?:").lower().strip()[0] == "y":
+    stopInput = "y"
+    while stopInput == "y".lower().strip()[0]:
         project = raw_input("Project number?[{}]: ".format(a.project)) or a.project
         category = raw_input("Category number?[{}]: ".format(a.category)) or a.category
         hours = raw_input("Number of hours?[{}]: ".format(a.hours)) or a.hours
         comment = raw_input("Comment?[{}]: ".format(a.comment)) or a.comment
         a = Activity(Project=project, Category=category, Hours=hours, Comment=comment)
         backend.execute(a.toString())
+        stopInput = raw_input("Want to add another? [y/N]: ")
+# Need to rewrite this when you´re not an effin zombie
+# def new_activity():
+#     global a
+#     another = "y"
+#     a = Activity()
+#     while raw_input("Add another [y/n]?:").lower().strip()[0] == "y":
+#         project = raw_input("Project number?[{}]: ".format(a.project)) or a.project
+#         category = raw_input("Category number?[{}]: ".format(a.category)) or a.category
+#         hours = raw_input("Number of hours?[{}]: ".format(a.hours)) or a.hours
+#         comment = raw_input("Comment?[{}]: ".format(a.comment)) or a.comment
+#         a = Activity(Project=project, Category=category, Hours=hours, Comment=comment)
+#         backend.execute(a.toString())
 
 def get_projects(): # Only changes the word to send
     backend.execute("projects")
