@@ -56,10 +56,10 @@ class NovaCliConn():
 
     def execute(self, command):
         self.payload = os.getcwd()+"{} {} -u {} -p {}".format(self.path, command, self.user, self.pwd)
-        #output = subprocess.check_output(self.payload, shell=True)
-	print self.payload
-	print(pexpect.run(self.payload))        
-	#print(output)
+        output = subprocess.check_output(self.payload, shell=True)
+        print self.payload
+        #print(pexpect.run(self.payload))
+        print(output)
 
     def check_os(self):
         if sys.platform == ("win32" or "Windows" or "win64"):
