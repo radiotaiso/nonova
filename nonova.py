@@ -36,10 +36,10 @@ def new_activity():
     a = Activity()
     stopInput = "y"
     while stopInput == "y".lower().strip()[0]:
-        a.project = raw_input("Project number?[{}]: ".format(a.project))
-        a.category = raw_input("Category number?[{}]: ".format(a.category))
-        a.hours = raw_input("Number of hours?[{}]: ".format(a.hours))
-        a.comment = raw_input("Comment?[{}]: ".format(a.comment))
+        a.project = raw_input("Project number?[{}]: ".format(a.project)) or a.project
+        a.category = raw_input("Category number?[{}]: ".format(a.category)) or a.category
+        a.hours = raw_input("Number of hours?[{}]: ".format(a.hours)) or a.hours
+        a.comment = raw_input("Comment?[{}]: ".format(a.comment)) or a.comment
         backend.execute(a.toString())
         # backend.test_exec(a.toString())
         stopInput = raw_input("Want to add another? [y/N]: ")
