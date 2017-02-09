@@ -25,12 +25,17 @@ After cloning and installing go to the project's folder and run:
 ```python
 python nonova.py -c config.ini
 ```
-Follow the steps to provide your Nova credentials (which will be stored locally on the same folder)
+Follow the steps to provide your credentials (which will be stored locally on the same folder)
 this will also get your OS in order to use the right compliled nova-cli.
 
 You can query your assigned projects using:
 ```python
 python nonova.py -p
+```
+
+To get the list of categories for the task run:
+```
+python nonova.py -C
 ```
 
 To add a new item to your nova you just need to run:
@@ -40,12 +45,13 @@ python nonova.py -a
 And provide the information requested, after the first item entered previous options given will be set as default
 so if you just press `enter` it will use the bracketed information.
 
-To get the list of categories for the task run:
-```
-python nonova.py -C
-```
+## Everything else
+
+And provide the information requested, after the first item entered previous options given will be set as default
+so if you just press `enter` it will use the bracketed information.
 
 ## Everything else
+
 General extra information for reference or whatever you want it to be.
 
 ### Contributing
@@ -66,5 +72,5 @@ General extra information for reference or whatever you want it to be.
 
 This project is licensed under the GPL-3.0 - see the [LICENSE.md](LICENSE.md) file for details
 
-#### Wow
+#### Such wow
 Did you really read everything? that's pretty cool!
