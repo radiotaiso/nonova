@@ -1,5 +1,6 @@
 import os
 import sys
+import pexpect
 import subprocess
 from configparser import ConfigParser
 
@@ -54,9 +55,11 @@ class NovaCliConn():
         self.pwd = conffile.get("Credentials", "pass")
 
     def execute(self, command):
-        self.payload = os.getcwd()+"{} {} /u {} /p {}".format(self.path, command, self.user, self.pwd)
-        output = subprocess.check_output(self.payload, shell=True)
-        print(output)
+        self.payload = os.getcwd()+"{} {} -u {} -p {}".format(self.path, command, self.user, self.pwd)
+        #output = subprocess.check_output(self.payload, shell=True)
+	print self.payload
+	print(pexpect.run(self.payload))        
+	#print(output)
 
     def check_os(self):
         if sys.platform == ("win32" or "Windows" or "win64"):
