@@ -40,7 +40,6 @@ def new_activity():
         a.category = raw_input("Category number?[{}]: ".format(a.category))
         a.hours = raw_input("Number of hours?[{}]: ".format(a.hours))
         a.comment = raw_input("Comment?[{}]: ".format(a.comment))
-        a = Activity(Project=project, Category=category, Hours=hours, Comment=comment)
         backend.execute(a.toString())
         # backend.test_exec(a.toString())
         stopInput = raw_input("Want to add another? [y/N]: ")

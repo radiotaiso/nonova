@@ -2,6 +2,7 @@ import sys
 import subprocess
 from configparser import ConfigParser
 
+
 class NoNovaConfigParser(ConfigParser):
     def __init__(self, args):
         ConfigParser.__init__(self)
@@ -17,11 +18,11 @@ class NoNovaConfigParser(ConfigParser):
         print(self.args.config)
         if self.read(self.args.config):
             # self.read(self.args.config)
-            print ("Reading file...")
+            print "File Found!"
             self.userConfirm = self.get("Credentials","user")
             self.passConfirm = self.get("Credentials","pass")
             self.osPlatformC = self.get("Credentials","os")
-            print ("Your credentials are {} and {} and currently running on {}".format(self.userConfirm, self.passConfirm,self.osPlatformC))
+            print "Your credentials are {} and {} and currently running on {}".format(self.userConfirm, self.passConfirm,self.osPlatformC)
         else:
             self._create_config()
 
@@ -40,8 +41,9 @@ class NoNovaConfigParser(ConfigParser):
                 self.write(config_file)
             finally:
                 print("Config file created!")
-                print("Remember use the -p and -a option to fetch projects with corresponding IDs.")
+                print("Remember use the -p option to fetch your projects! You only need to do this once!")
 # --------- ends NoNovaConfigParser class -----------------
+
 
 class NovaCliConn():
     def __init__(self, conffile):
@@ -52,7 +54,8 @@ class NovaCliConn():
 
     def execute(self, command):
         self.payload = "{} {} /u {} /p {}".format(self.path, command, self.user, self.pwd)
-        output = subprocess.check_output(self.payload, shell=True)
+        if sys.platform = ""
+        output = subprocess.check_output(self.payload, shell=False)
         print(output)
 
     def check_os(self):
@@ -62,10 +65,6 @@ class NovaCliConn():
             return "bin/osx/nova-cli"
         elif sys.platform == "Linux" or "Linux2":
             return "Sorry dude, but trix es solo para chavos."
-
-    def test_exec(self, command): #Just prints, no real input to nova-cli
-        self.payload = "{} {} /u {} /p {}".format(self.path, command, self.user, self.pwd)
-        print (self.payload)
 
 # class Activity(Object):
 class Activity():
@@ -80,10 +79,11 @@ class Activity():
     def toString(self):
         return "add /P {} /t {} /c {}  {}".format(self.project, self.hours, self.category, self.comment)
 
+
     def insert_activity(self, pathToCli):
         self.fn = pathToCli + self.output
         p = subprocess.check_output(self.fn)
-        print (p)
+        print p
 
 # ------------ ENDS Activity class
 
