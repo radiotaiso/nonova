@@ -70,7 +70,7 @@ class NovaCliConn():
             return "Sorry dude, but trix es solo para chavos."
 
     def test_exec(self, command): #Just prints, no real input to nova-cli
-        self.payload = "{} {} /u {} /p {}".format(self.path, command, self.user, self.pwd)
+        self.payload = "{} {} -u {} -p {}".format(self.path, command, self.user, self.pwd)
         print (self.payload)
 
 # class Activity(Object):
@@ -84,7 +84,7 @@ class Activity():
         self.comment = Comment
 
     def toString(self):
-        return "add /P {} /t {} /c {}  {}".format(self.project, self.hours, self.category, self.comment)
+        return "add -P {} -t {} -c {}  {}".format(self.project, self.hours, self.category, self.comment)
 
 
     def insert_activity(self, pathToCli):
