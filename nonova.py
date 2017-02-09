@@ -7,6 +7,7 @@
 # -nova-cli? or will it be hosted in tchai? if tchai true, we need to make it public
 import os
 import sys
+import logging
 import platform
 import subprocess
 from subprocess import call
@@ -31,6 +32,7 @@ def cli_parser():
     return args
 
 def new_activity():
+    logging.info("Starting to add activities n' stuff")
     a = Activity()
     stopInput = "y"
     while stopInput == "y".lower().strip()[0]:
@@ -41,17 +43,23 @@ def new_activity():
         backend.execute(a.toString())
         # backend.test_exec(a.toString())
         stopInput = raw_input("Want to add another? [y/N]: ")
+        logging.info("add another?")
+        logging.info(stopInput)
 
 def get_projects(): # Only changes the word to send
     backend.execute("projects")
+    logging.info("Yo, I just checked my projects!")
 
 def get_categories(): # Should we be saving this in the .ini file? To avoid requiring it from nova each time and quicker printing.
     backend.execute("categories")
+    logging.info("Mah categories dawg! here they are")
 
 def main():
+    logging.basicConfig(filename='nonovawtf.log' ,format='%(asctime)s - %(levelname)s:%(message)s',datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.INFO)
     global novaconf
     global backend
     #Parse teh world (one command line at a time)
+    logging.info("WOOOOT I\'M ALIVE MTF!")
     args = cli_parser()
     # Read config file, if not, create one.
     novaconf = NoNovaConfigParser(args)
