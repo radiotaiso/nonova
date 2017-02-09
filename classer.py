@@ -66,6 +66,10 @@ class NovaCliConn():
         elif sys.platform == "Linux" or "Linux2":
             return "Sorry dude, but trix es solo para chavos."
 
+    def test_exec(self, command): #Just prints, no real input to nova-cli
+        self.payload = "{} {} /u {} /p {}".format(self.path, command, self.user, self.pwd)
+        print (self.payload)
+        
 # class Activity(Object):
 class Activity():
 
