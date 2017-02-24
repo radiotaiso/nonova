@@ -1,6 +1,6 @@
 import os
 import sys
-import pexpect
+import logging
 import subprocess
 from configparser import ConfigParser
 
@@ -8,24 +8,27 @@ from configparser import ConfigParser
 class NoNovaConfigParser(ConfigParser):
     def __init__(self, args):
         ConfigParser.__init__(self)
-        print("slf")
         self.args = args
         self.config_file = args.config
         self.osPlatform = sys.platform
         self.user = ""
         self.password = ""
         self._check_config()
+        logging.info("Checking if there is any config file!")
 
     def _check_config(self):
-        print(self.args.config)
+        # print(self.args.config)
         if self.read(self.args.config):
             # self.read(self.args.config)
-            print "File Found!"
+            # print "File Found!"
             self.userConfirm = self.get("Credentials","user")
             self.passConfirm = self.get("Credentials","pass")
             self.osPlatformC = self.get("Credentials","os")
-            print "Your credentials are {} and {} and currently running on {}".format(self.userConfirm, self.passConfirm,self.osPlatformC)
+            # print "Your credentials are {} and {} and currently running on {}".format(self.userConfirm, self.passConfirm,self.osPlatformC)
+            logging.info("Nice! there's the config file!")
+            logging.info("Your credentials are {} and {} and currently running on {}".format(self.userConfirm, self.passConfirm,self.osPlatformC))
         else:
+            logging.info("Oh shoot! couldn't find any! let'sa go maek one!")
             self._create_config()
 
     def _create_config(self):
@@ -42,8 +45,8 @@ class NoNovaConfigParser(ConfigParser):
             try:
                 self.write(config_file)
             finally:
-                print("Config file created!")
                 print("Remember use the -p option to fetch your projects! You only need to do this once!")
+                logging.info("Config file created!!")
 # --------- ends NoNovaConfigParser class -----------------
 
 
@@ -58,8 +61,11 @@ class NovaCliConn():
         self.payload = os.getcwd()+"{} {} -u {} -p {}".format(self.path, command, self.user, self.pwd)
         output = subprocess.check_output(self.payload, shell=True)
         print self.payload
+        logging.info("Excecuting order 66")
+        logging.info(self.payload)
         #print(pexpect.run(self.payload))
         print(output)
+        logging.info(output)
 
     def check_os(self):
         if sys.platform == ("win32" or "Windows" or "win64"):
@@ -72,6 +78,7 @@ class NovaCliConn():
     def test_exec(self, command): #Just prints, no real input to nova-cli
         self.payload = "{} {} -u {} -p {}".format(self.path, command, self.user, self.pwd)
         print (self.payload)
+        logging.info("Why are you here? you're not supposed to come to test_exec")
 
 # class Activity(Object):
 class Activity():
@@ -90,6 +97,8 @@ class Activity():
     def insert_activity(self, pathToCli):
         self.fn = pathToCli + self.output
         p = subprocess.check_output(self.fn)
+        logging.info("insertando actividarks: ")
+        logging.info(p)
         print p
 
 # ------------ ENDS Activity class
