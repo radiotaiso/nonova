@@ -49,11 +49,6 @@ so if you just press `enter` it will use the bracketed information.
 
 ## Everything else
 
-And provide the information requested, after the first item entered previous options given will be set as default
-so if you just press `enter` it will use the bracketed information.
-
-## Everything else
-
 General extra information for reference or whatever you want it to be.
 
 ### Contributing
