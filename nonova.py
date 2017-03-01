@@ -42,6 +42,7 @@ def new_activity():
         a.comment = raw_input("Comment?[{}]: ".format(a.comment)) or a.comment
         backend.execute(a.toString())
         # backend.test_exec(a.toString())
+
         #store = raw_input("Want to save activity to file? [y/N]")
             # if store == "y".lower().strip()[0]:
             #     save_activity(a)
@@ -57,8 +58,10 @@ def get_categories(): # Should we be saving this in the .ini file? To avoid requ
     backend.execute("categories")
     logging.info("Mah categories dawg! here they are")
 
+
 def save_activity(act):
     novaconf.set("Activities", "entry", act.toString())
+
 
 def main():
     logging.basicConfig(filename='nonovawtf.log' ,format='%(asctime)s - %(levelname)s:%(message)s',datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.INFO)

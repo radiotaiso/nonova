@@ -66,7 +66,6 @@ class NovaCliConn():
         logging.info("Excecuting order 66")
         logging.info(self.payload)
         #print(pexpect.run(self.payload))
-        print output
         logging.info(output)
 
     def check_os(self):

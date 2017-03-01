@@ -7,7 +7,9 @@ Nonova uses nova-cli to input items in Nova easy, quick and painless from your f
 Version 1 is almost ready and in continious development
 (not as quick as we'd like but hey we have work to do besides this `¯\_(ツ)_/¯`)
 
-OSx seems to be having issues, this is the main focus right now.
+~~OSx seems to be having issues, this is the main focus right now.~~
+
+OSx is working now, open a new issue if you encounter one.
 
 ### Prerequisites
 
@@ -47,11 +49,6 @@ so if you just press `enter` it will use the bracketed information.
 
 ## Everything else
 
-And provide the information requested, after the first item entered previous options given will be set as default
-so if you just press `enter` it will use the bracketed information.
-
-## Everything else
-
 General extra information for reference or whatever you want it to be.
 
 ### Contributing
@@ -73,4 +70,6 @@ General extra information for reference or whatever you want it to be.
 This project is licensed under the GPL-3.0 - see the [LICENSE.md](LICENSE.md) file for details
 
 #### Such wow
-Did you really read everything? that's pretty cool!
+Did you really read everything? that's pretty cool! 
+
+KTHXBAI
