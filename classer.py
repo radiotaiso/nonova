@@ -2,6 +2,7 @@ import os
 import sys
 import logging
 import subprocess
+import getpass
 from configparser import ConfigParser
 
 
@@ -35,9 +36,10 @@ class NoNovaConfigParser(ConfigParser):
         print ("Creating new text file...")
         print ("-------------------------")
         self.user = raw_input("What's your username?: ")
-        self.password = raw_input("What's your password? Pinky promise we won't share it: ")
+        self.password = getpass.getpass("What's your password? Pinky promise we won't share it: ")
         print ("Thanks that's all, we'll let you know when is finished")
         self.add_section("Credentials")
+        self.add_section("Activities")
         self.set("Credentials","user",self.user)
         self.set("Credentials","pass",self.password)
         self.set("Credentials","OS",self.osPlatform)
@@ -64,7 +66,6 @@ class NovaCliConn():
         logging.info("Excecuting order 66")
         logging.info(self.payload)
         #print(pexpect.run(self.payload))
-        print(output)
         logging.info(output)
 
     def check_os(self):
