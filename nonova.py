@@ -35,22 +35,18 @@ def new_activity():
     logging.info("Starting to add activities n' stuff")
     a = Activity()
     stopInput = "y"
-    invalidData = 'true';
     while stopInput == "y".lower().strip()[0]:
-        while invalidData == 'true':
-            invalidData = 'false';
+        while 1:
             if not a.project:
-                invalidData = 'true';
                 a.project = raw_input("Project number?[{}]: ".format(a.project)) or a.project
-            if not a.category:
-                invalidData = 'true';
+            elif not a.category:
                 a.category = raw_input("Category number?[{}]: ".format(a.category)) or a.category
-            if not a.hours:
-                invalidData = 'true';
+            elif not a.hours:
                 a.hours = raw_input("Number of hours?[{}]: ".format(a.hours)) or a.hours
-            if not a.comment:
-                invalidData = 'true';
+            elif not a.comment:
                 a.comment = raw_input("Comment?[{}]: ".format(a.comment)) or a.comment
+            else: 
+                break;
         backend.execute(a.toString())
         # backend.test_exec(a.toString())
 
