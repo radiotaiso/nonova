@@ -35,8 +35,15 @@ class NoNovaConfigParser(ConfigParser):
     def _create_config(self):
         print ("Creating new text file...")
         print ("-------------------------")
-        self.user = raw_input("What's your username?: ")
-        self.password = getpass.getpass("What's your password? Pinky promise we won't share it: ")
+        while not self.user:
+            self.user = raw_input("What's your username?: ")
+            if not self.user:
+                print('ups! Any user added, please try again')
+        while not self.password:
+            self.password = getpass.getpass("What's your password? Pinky promise we won't share it: ")
+            if not self.password:
+                print('mmm, you not add any password! Please try again')
+        
         print ("Thanks that's all, we'll let you know when is finished")
         self.add_section("Credentials")
         self.add_section("Activities")
@@ -62,11 +69,11 @@ class NovaCliConn():
     def execute(self, command):
         self.payload = os.getcwd()+"{} {} -u {} -p {}".format(self.path, command, self.user, self.pwd)
         output = subprocess.check_output(self.payload, shell=True)
-        print self.payload
+        #print self.payload
         logging.info("Excecuting order 66")
         logging.info(self.payload)
         #print(pexpect.run(self.payload))
-        logging.info(output)
+        print(output)
 
     def check_os(self):
         if sys.platform == ("win32" or "Windows" or "win64"):
