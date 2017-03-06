@@ -35,6 +35,7 @@ class NoNovaConfigParser(ConfigParser):
     def _create_config(self):
         print ("Creating new text file...")
         print ("-------------------------")
+
         while not self.user:
             self.user = raw_input("What's your username?: ")
             if not self.user:
@@ -44,6 +45,7 @@ class NoNovaConfigParser(ConfigParser):
             if not self.password:
                 print('mmm, you not add any password! Please try again')
         
+
         print ("Thanks that's all, we'll let you know when is finished")
         self.add_section("Credentials")
         self.add_section("Activities")
