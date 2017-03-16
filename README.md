@@ -35,6 +35,12 @@ After cloning and installing go to the project's folder and run:
 python nonova.py --help
 ```
 
+The purpose of the tool is to easily fill "ini" files that contain your activities
+
+You can generate different ini files for different days of the week and thus retrieve and upload those activities in another time.
+
+*REMEMBER* You can only upload activites for _the same day_
+
 Follow the steps to provide your credentials (which will be stored locally on the same folder)
 this will also get your OS in order to use the right compliled nova-cli.
 
