@@ -25,7 +25,6 @@ def cli_parser():
     parser.add_argument("-C" " --category", dest="category", help="Show categories available", action="store_true")
     parser.add_argument("-p" " --project", dest="getp", help="Show your project list", action="store_true")
     parser.add_argument("-a" " --activity", dest="new_activity", help="Insert new set of activities", action="store_true")
-    parser.add_argument("-A", dest="from file", help="Reads activity from file --UNAVAILABLE", action="store_true")
     parser.add_argument("-r" " --read", dest="read", help="Read from file and upload activities found", action="store_true")
     if len(sys.argv) == 1:
         parser.print_help()
