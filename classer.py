@@ -69,12 +69,14 @@ class NovaCliConn():
         self.pwd = conffile.get("Credentials", "pass")
 
     def execute(self, command):
+        # Construct command
         self.payload = os.getcwd()+"{} {} -u {} -p {}".format(self.path, command, self.user, self.pwd)
-        output = subprocess.check_output(self.payload, shell=True)
-        #print self.payload
         logging.info("Excecuting order 66")
         logging.info(self.payload)
-        #print(pexpect.run(self.payload))
+        # Execute by subprocess
+        output = subprocess.check_output(self.payload, shell=True)
+        logging.info("Excecuting order 66")
+        logging.info(self.payload)
         print(output)
 
     def check_os(self):
@@ -89,42 +91,3 @@ class NovaCliConn():
         self.payload = "{} {} -u {} -p {}".format(self.path, command, self.user, self.pwd)
         print (self.payload)
         logging.info("Why are you here? you're not supposed to come to test_exec")
-
-# class Activity(Object):
-class Activity():
-
-    def __init__(self, Project=None, Category=None, Ticket=None, Hours=None, Comment=None):
-        self.project = Project
-        self.category = Category
-        self.hours = Hours
-        self.ticket = Ticket
-        self.comment = Comment
-
-    def toString(self):
-        return "add -P {} -t {} -c {}  {}".format(self.project, self.hours, self.category, self.comment)
-
-
-    def insert_activity(self, pathToCli):
-        self.fn = pathToCli + self.output
-        p = subprocess.check_output(self.fn)
-        logging.info("insertando actividarks: ")
-        logging.info(p)
-        print p
-
-# ------------ ENDS Activity class
-
-# def get_projects(self,pathToCli): # Gets projects from configured credentials
-#         self.read(self.args.config)
-#         self.userConfirm = self.get("Credentials","user")
-#         self.passConfirm = self.get("Credentials","pass")
-#         self.fn = os.path.join(os.path.dirname(__file__),pathToCli) + " projects"
-#         print self.fn
-#         #raw_input
-#         if self.osPlatform == "Darwin":
-#             call(self.fn, shell=True)
-#         else:
-#             print self.fn
-#             p = subprocess.check_output(self.fn).splitlines()
-#             for i in p:
-#                 tab = {}
-#                 print i.split("\t")
