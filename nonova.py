@@ -26,6 +26,7 @@ def cli_parser():
     parser.add_argument("-p" " --project", dest="getp", help="Show your project list", action="store_true")
     parser.add_argument("-a" " --activity", dest="new_activity", help="Insert new set of activities", action="store_true")
     parser.add_argument("-A", dest="from file", help="Reads activity from file --UNAVAILABLE", action="store_true")
+    parser.add_argument("-r" " --read", dest="read", help="Read from file and upload activities found", action="store_true")
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit(1)
@@ -38,23 +39,24 @@ def new_activity():
     # activities.append(a)
     stop_input = "y"
     invalid_data = 'true'
-    while stop_input == "y".lower().strip()[0]:
+    b = activity.Activity()
+    while stop_input.lower().strip()[0] == 'y':
         a = activity.Activity()
         # while invalid_data == 'true':
         #     invalid_data = 'false'
         #     if not a.project:
         #         invalid_data = 'true'
-        a.project = raw_input("Project number?[{}]: ".format(a.project)) or a.project
+        a.project = raw_input("Project number?[{}]: ".format(b.project)) or b.project
         #     if not a.category:
         #         invalid_data = 'true'
-        a.category = raw_input("Category number?[{}]: ".format(a.category)) or a.category
+        a.category = raw_input("Category number?[{}]: ".format(b.category)) or b.category
         #     if not a.hours:
         #         invalid_data = 'true'
-        a.hours = raw_input("Number of hours?[{}]: ".format(a.hours)) or a.hours
+        a.hours = raw_input("Number of hours?[{}]: ".format(b.hours)) or b.hours
         #     if not a.comment:
         #         invalid_data = 'true'
-        a.comment = raw_input("Comment?[{}]: ".format(a.comment)) or a.comment
-
+        a.comment = raw_input("Comment?[{}]: ".format(b.comment)) or b.comment
+        b = a
         backend.execute(a.toString())
 
         # Adding to file
@@ -63,8 +65,8 @@ def new_activity():
             save_activity(a)
 
         # Loop
-        stopInput = raw_input("Want to add another? [Y/n]: ")
-        logging.info("add another? %s", stopInput)
+        stop_input = raw_input("Want to add another? [Y/n]: ")
+        logging.info("add another? %s", stop_input)
 
 
 def get_projects(): # Only changes the word to send
@@ -78,8 +80,12 @@ def get_categories(): # Should we be saving this in the .ini file? To avoid requ
 
 
 def save_activity(act):
+    """
+
+    :type act: Activity objetc
+    """
     data = [a for a in dir(act) if not a.startswith('__')]
-    for i in data:
+    for i in act.attribute_list:
         novaconf.set("Activities", "{} {}".format(act.id, i), getattr(act, i))
     with open(novaconf.args.config, "wb") as config_file:
         try:
@@ -88,6 +94,34 @@ def save_activity(act):
             logging.info("Activity {} added to config".format(act.id))
 
 
+def read_from_file():
+    file_activities = {}
+    activity_values = []
+    passes = 1
+    novaconf.read(novaconf.args.config)
+    for (each_key, each_val) in novaconf.items("Activities"):
+        keys = {}
+        k, v = each_key.split(" ")
+        keys[v] = each_val
+        activity_values.append(keys)
+        file_activities[k] = activity_values
+        if passes == 5:
+            activity_values = []
+        passes += 1
+    return file_activities
+
+
+def add_from_file():
+    file_act = read_from_file()
+    if file_act.keys() > 0:
+        logging.info("Pack de actividades encontrado papu")
+        for i in file_act.keys():
+            a = activity.Activity()
+            dic = file_act[i]
+            for v in dic:
+                for k in v:
+                    setattr(a, k, v[k])
+            backend.execute(a.toString())
 
 
 def main():
@@ -109,6 +143,8 @@ def main():
         get_projects()
     elif args.category:
         get_categories()
+    elif args.read:
+        add_from_file()
 
 if __name__ == "__main__":
     sys.exit(main())
