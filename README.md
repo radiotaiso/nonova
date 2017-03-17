@@ -79,6 +79,9 @@ General extra information for reference or whatever you want it to be.
 
 [Toño "Evidentemente" Herran](https://github.com/antonioherran "his github")
 
+[Karly Garcia](https://github.com/KarlyGrCm "Karly's stuff")
+
+
 ### License
 
 This project is licensed under the GPL-3.0 - see the [LICENSE.md](LICENSE.md) file for details
