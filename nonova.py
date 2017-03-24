@@ -83,7 +83,6 @@ def save_activity(act):
 
     :type act: Activity objetc
     """
-    data = [a for a in dir(act) if not a.startswith('__')]
     for i in act.attribute_list:
         novaconf.set("Activities", "{} {}".format(act.id, i), getattr(act, i))
     with open(novaconf.args.config, "wb") as config_file:
@@ -124,6 +123,9 @@ def add_from_file():
 
 
 def main():
+    """
+    Nonova prros
+    """
     global novaconf
     global backend
     logging.basicConfig(filename='nonovawtf.log' ,format='%(asctime)s - %(levelname)s:%(message)s',datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.INFO)
