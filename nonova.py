@@ -123,9 +123,6 @@ def add_from_file():
 
 
 def main():
-    """
-    Nonova prros
-    """
     global novaconf
     global backend
     logging.basicConfig(filename='nonovawtf.log' ,format='%(asctime)s - %(levelname)s:%(message)s',datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.INFO)
