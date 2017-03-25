@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/ucoria-itexico/nonova.svg?branch=master)](https://travis-ci.org/ucoria-itexico/nonova) < I still have no idea how travis works, nevermind this.
 # nonova
 Sick of nova? this is your tool.
 
