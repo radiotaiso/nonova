@@ -64,7 +64,7 @@ def new_activity():
             save_activity(a)
 
         # Loop
-        stop_input = raw_input("Want to add another? [Y/n]: ")
+        stop_input = raw_input("Want to add another? [Y/n]: ") or "y"
         logging.info("add another? %s", stop_input)
 
 
