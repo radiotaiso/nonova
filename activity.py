@@ -10,7 +10,7 @@ class Activity():
 
     def __init__(self, Project=None, Category=None, Ticket=None, Hours=None, Comment=None):
         self.id = self._ids.next()
-        self.attribute_list = ['project', 'category', 'hours', 'ticket', 'comment']
+        self.attribute_list = ['project', 'category', 'hours', 'comment']
         self.project = Project
         self.category = Category
         self.hours = Hours
