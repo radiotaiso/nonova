@@ -18,7 +18,7 @@ class Activity():
         self.comment = Comment
 
     def toString(self):
-        return "add -P {} -t {} -c {}  {}".format(self.project, self.hours, self.category, self.comment)
+        return "add -P {} -t {} -c {} {}".format(self.project, self.hours, self.category, self.comment)
 
     def insert_activity(self, pathToCli):
         self.fn = pathToCli + self.output

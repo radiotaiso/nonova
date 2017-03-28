@@ -70,13 +70,11 @@ class NovaCliConn():
 
     def execute(self, command):
         # Construct command
-        self.payload = os.getcwd()+"{} {} -u {} -p {}".format(self.path, command, self.user, self.pwd)
-        logging.info("Excecuting order 66")
+        self.payload = os.getcwd().replace('\\','/')+ "{} {} -u {} -p {}".format(self.path, command, self.user, self.pwd)
+        logging.info("Executing order 66")
         logging.info(self.payload)
         # Execute by subprocess
         output = subprocess.check_output(self.payload, shell=True)
-        logging.info("Excecuting order 66")
-        logging.info(self.payload)
         print(output)
 
     def check_os(self):
