@@ -1,22 +1,13 @@
-[![Build Status](https://travis-ci.org/ucoria-itexico/nonova.svg?branch=master)](https://travis-ci.org/ucoria-itexico/nonova) < I still have no idea how travis works, nevermind this.
+[![Build Status](https://travis-ci.org/ucoria-itexico/nonova.svg?branch=master)](https://travis-ci.org/ucoria-itexico/nonova) <- I still have no idea how travis works, working on implementing that
 # nonova
 Sick of nova? this is your tool.
 
 ## Getting started
 Nonova uses nova-cli to input items in Nova easy, quick and painless from your favorite terminal.
 
-# Changelog 03/16/2017
+#### Changelog 03/16/2017
 
 We're happy to anounce version 1.0. Save and read activities from file implemented.
-
-# Changelog 02/05/2017
-
-Version 1 is almost ready and in continious development
-(not as quick as we'd like but hey we have work to do besides this `¯\_(ツ)_/¯`)
-
-~~OSx seems to be having issues, this is the main focus right now.~~
-
-OSx is working now, open a new issue if you encounter one.
 
 ### Prerequisites
 
@@ -76,7 +67,7 @@ General extra information for reference or whatever you want it to be.
 
 ### Authors
 
-[Uriel Coria](https://github.com/ucoria-itexico/ "lol you're already here")
+[Uriel Coria](# "lol you're already here")
 
 [Toño "Evidentemente" Herran](https://github.com/antonioherran "his github")
 
