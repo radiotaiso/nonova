@@ -95,3 +95,4 @@ ENV/
 
 # Idea shit
 .idea
+.DS_Store
