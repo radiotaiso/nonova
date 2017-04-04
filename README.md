@@ -1,4 +1,9 @@
-[![Build Status](https://travis-ci.org/ucoria-itexico/nonova.svg?branch=master)](https://travis-ci.org/ucoria-itexico/nonova)
+[![Build Status](https://travis-ci.org/UpsetPelican/nonova.svg?branch=master)](https://travis-ci.org/UpsetPelican/nonova)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
+[![Coverage Status](https://coveralls.io/repos/github/UpsetPelican/nonova/badge.svg?branch=master)](https://coveralls.io/github/UpsetPelican/nonova?branch=master)
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/UpsetPelican/nonova.svg)](http://isitmaintained.com/project/UpsetPelican/nonova "Average time to resolve an issue")
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/UpsetPelican/nonova.svg)](http://isitmaintained.com/project/UpsetPelican/nonova "Percentage of issues still open")
+
 # nonova
 Sick of nova? this is your tool.
 
