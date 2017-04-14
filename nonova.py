@@ -103,7 +103,7 @@ def read_from_file():
         keys[v] = each_val
         activity_values.append(keys)
         file_activities[k] = activity_values
-        if passes == 5:
+        if passes == 4:
             activity_values = []
         passes += 1
     return file_activities
