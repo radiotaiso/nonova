@@ -44,7 +44,7 @@ class NoNovaConfigParser(ConfigParser):
             self.password = getpass.getpass("What's your password? Pinky promise we won't share it: ")
             if not self.password:
                 print('mmm, you not add any password! Please try again')
-        
+
 
         print ("Thanks that's all, we'll let you know when is finished")
         self.add_section("Credentials")
@@ -74,8 +74,12 @@ class NovaCliConn():
         logging.info("Executing order 66")
         logging.info(self.payload)
         # Execute by subprocess
-        output = subprocess.check_output(self.payload, shell=True)
-        print(output)
+        try:
+            output = subprocess.check_output(self.payload, shell=True)
+        except subprocess.CalledProcessError as e:
+            print("No error belongs nowhere: {}".format(e))
+        finally:
+            pass
 
     def check_os(self):
         if sys.platform == ("win32" or "Windows" or "win64"):
