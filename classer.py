@@ -89,3 +89,13 @@ class NovaCliConn():
         self.payload = "{} {} -u {} -p {}".format(self.path, command, self.user, self.pwd)
         print (self.payload)
         logging.info("Why are you here? you're not supposed to come to test_exec")
+
+    #Validating stuff
+    def validate_input(validate,input):
+        valid_inputs = {}
+        valid_inputs = execute(input)
+        if validate in valid_inputs:
+            return True
+        else:
+            return valid_inputs
+
