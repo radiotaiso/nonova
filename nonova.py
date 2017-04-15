@@ -37,7 +37,7 @@ def new_activity():
 
     # activities.append(a)
     stop_input = "y"
-    invalid_data = 'true'
+    # invalid_data = 'true'
     b = activity.Activity()
     while stop_input.lower().strip()[0] == 'y':
         a = activity.Activity()
