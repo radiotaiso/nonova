@@ -3,7 +3,7 @@ import sys
 import logging
 import subprocess
 import getpass
-from configparser import ConfigParser
+from ConfigParser import ConfigParser
 
 
 class NoNovaConfigParser(ConfigParser):
@@ -76,6 +76,7 @@ class NovaCliConn():
         # Execute by subprocess
         try:
             output = subprocess.check_output(self.payload, shell=True)
+            print output
         except subprocess.CalledProcessError as e:
             print("No error belongs nowhere: {}".format(e))
         finally:
