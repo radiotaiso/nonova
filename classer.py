@@ -69,6 +69,11 @@ class NovaCliConn():
         self.pwd = conffile.get("Credentials", "pass")
 
     def execute(self, command):
+        """
+
+        :param command: string, the arguments for the command input.
+        :return: string, the output from the command execution via subprocess.
+        """
         # Construct command
         self.payload = os.getcwd().replace('\\','/')+ "{} {} -u {} -p {}".format(self.path, command, self.user, self.pwd)
         logging.info("Executing order 66")
@@ -76,7 +81,7 @@ class NovaCliConn():
         # Execute by subprocess
         try:
             output = subprocess.check_output(self.payload, shell=True)
-            print output
+            return output
         except subprocess.CalledProcessError as e:
             print("No error belongs nowhere: {}".format(e))
         finally:
