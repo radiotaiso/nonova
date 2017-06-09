@@ -12,9 +12,12 @@ from argparse import ArgumentParser
 from classer import NoNovaConfigParser
 from classer import NovaCliConn
 import activity
+import re
+from nonova_exceptions import InvalidCategoryException, InvalidProjectException
 
 activities = []
 
+id_name_regex = re.compile("(\d+)\s+([^\n]+)\n")
 
 # --------- Arg Parser arguments --------------------------
 
@@ -48,15 +51,23 @@ def new_activity():
         a.project = raw_input("Project number?[{}]: ".format(b.project)) or b.project
         #     if not a.category:
         #         invalid_data = 'true'
+        if not validate_project(a.project):
+            raise InvalidProjectException("%s is not a valid project, please enter one of the following\n: %s" % (
+                a.project, backend.execute("projects")
+            ))
         a.category = raw_input("Category number?[{}]: ".format(b.category)) or b.category
         #     if not a.hours:
         #         invalid_data = 'true'
+        if not validate_category(a.category):
+            raise InvalidCategoryException("%s is not a valid category, please enter one of the following\n: %s" % (
+                a.category, backend.execute("categories")
+            ))
         a.hours = raw_input("Number of hours?[{}]: ".format(b.hours)) or b.hours
         #     if not a.comment:
         #         invalid_data = 'true'
         a.comment = raw_input("Comment?[{}]: ".format(b.comment)) or b.comment
         b = a
-        backend.execute(a.toString())
+        print backend.execute(a.toString())
 
         # Adding to file
         store = raw_input("Want to save activity to file? [y/N]")
@@ -69,13 +80,15 @@ def new_activity():
 
 
 def get_projects(): # Only changes the word to send
-    backend.execute("projects")
+    projects_response = backend.execute("projects")
     logging.info("Yo, I just checked my projects!")
+    return id_name_regex.findall(projects_response)
 
 
 def get_categories(): # Should we be saving this in the .ini file? To avoid requiring it from nova each time and quicker printing.
-    backend.execute("categories")
+    categories_response = backend.execute("categories")
     logging.info("Mah categories dawg! here they are")
+    return id_name_regex.findall(categories_response)
 
 
 def save_activity(act):
@@ -119,8 +132,38 @@ def add_from_file():
             for v in dic:
                 for k in v:
                     setattr(a, k, v[k])
-            backend.execute(a.toString())
+            print backend.execute(a.toString())
 
+
+def validate_project(project_id):
+    """
+
+    :param project_id: integer, the project_id to validate
+    :return: boolean Wether the received project_id is a valid one or not.
+    """
+
+    backend = NovaCliConn(novaconf)
+    projects = get_projects()
+    if isinstance(project_id, str):
+        try:
+            project_id = int(project_id.strip())
+        except ValueError, e:
+            return False
+    return any([project[0] for project in projects if int(project[0].strip()) == project_id])
+    pass
+
+def validate_category(category_id):
+    """
+
+    :param activity_id: integer, the activity_id to validate
+    :return: boolean Wether the receivedactivity_id is a valid one or not.
+    """
+    backend = NovaCliConn(novaconf)
+    categories = get_categories()
+    if isinstance(category_id, str):
+        category_id = int(category_id.strip())
+    return any([category[0] for category in categories if int(category[0].strip()) == category_id])
+    pass
 
 def main():
     global novaconf
@@ -138,9 +181,9 @@ def main():
     if args.new_activity:
         new_activity()
     elif args.getp:
-        get_projects()
+        print backend.execute("projects")
     elif args.category:
-        get_categories()
+        print backend.execute("categories")
     elif args.read:
         add_from_file()
 
