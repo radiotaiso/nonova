@@ -78,6 +78,8 @@ General extra information for reference or whatever you want it to be.
 
 [Karly Garcia](https://github.com/KarlyGrCm "Karly's stuff")
 
+[Chaps SD](https://github.com/chaps/ "Seeeeeeñor!")
+
 
 ### License
 
