@@ -1,10 +1,5 @@
 #!/bin/python
 # -*- coding: utf-8 -*-
-#PREREQUISITES TO RUN THIS THING
-# -Python27
-# -ConfigParser
-# -ArgParse
-# -nova-cli? or will it be hosted in tchai? if tchai true, we need to make it public
 
 import sys
 import logging
@@ -14,6 +9,7 @@ from classer import NovaCliConn
 import activity
 import re
 from nonova_exceptions import InvalidCategoryException, InvalidProjectException
+from logging_spinner import SpinnerHandler, UserWaitingFilter
 
 activities = []
 
@@ -81,13 +77,13 @@ def new_activity():
 
 def get_projects(): # Only changes the word to send
     projects_response = backend.execute("projects")
-    logging.info("Yo, I just checked my projects!")
+    logging.info("Loading projects...", extra={'user_waiting':True})
     return id_name_regex.findall(projects_response)
 
 
 def get_categories(): # Should we be saving this in the .ini file? To avoid requiring it from nova each time and quicker printing.
     categories_response = backend.execute("categories")
-    logging.info("Mah categories dawg! here they are")
+    logging.info("Loading categories...", extra={'user_waiting':True})
     return id_name_regex.findall(categories_response)
 
 
@@ -182,8 +178,10 @@ def main():
         new_activity()
     elif args.getp:
         print backend.execute("projects")
+        logging.info("Projects are displayed!",extra={'user_waiting':False})
     elif args.category:
         print backend.execute("categories")
+        logging.info("Categories are displayed!",extra={'user_waiting':False})
     elif args.read:
         add_from_file()
 
