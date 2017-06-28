@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-:
 
 import sys
+import os
 import logging
 from argparse import ArgumentParser
 from classer import NoNovaConfigParser
@@ -15,6 +16,7 @@ activities = []
 
 id_name_regex = re.compile("(\d+)\s+([^\n]+)\n")
 
+logger = logging.getLogger('spinnerlogger')
 # --------- Arg Parser arguments --------------------------
 
 
@@ -34,33 +36,22 @@ def cli_parser():
 def new_activity():
     logging.info("Starting to add activities n' stuff")
 
-    # activities.append(a)
     stop_input = "y"
     invalid_data = 'true'
     b = activity.Activity()
     while stop_input.lower().strip()[0] == 'y':
         a = activity.Activity()
-        # while invalid_data == 'true':
-        #     invalid_data = 'false'
-        #     if not a.project:
-        #         invalid_data = 'true'
         a.project = raw_input("Project number?[{}]: ".format(b.project)) or b.project
-        #     if not a.category:
-        #         invalid_data = 'true'
         if not validate_project(a.project):
             raise InvalidProjectException("%s is not a valid project, please enter one of the following\n: %s" % (
                 a.project, backend.execute("projects")
             ))
         a.category = raw_input("Category number?[{}]: ".format(b.category)) or b.category
-        #     if not a.hours:
-        #         invalid_data = 'true'
         if not validate_category(a.category):
             raise InvalidCategoryException("%s is not a valid category, please enter one of the following\n: %s" % (
                 a.category, backend.execute("categories")
             ))
         a.hours = raw_input("Number of hours?[{}]: ".format(b.hours)) or b.hours
-        #     if not a.comment:
-        #         invalid_data = 'true'
         a.comment = raw_input("Comment?[{}]: ".format(b.comment)) or b.comment
         b = a
         print backend.execute(a.toString())
@@ -72,18 +63,21 @@ def new_activity():
 
         # Loop
         stop_input = raw_input("Want to add another? [Y/n]: ") or "y"
-        logging.info("add another? %s", stop_input)
+        logging.info("add another? {}".format(stop_input))
 
 
 def get_projects(): # Only changes the word to send
+    spinner = logger.getChild('get_projects')
+    spinner.info("Fetching projects...", extra={'user_waiting':True})
     projects_response = backend.execute("projects")
-    logging.info("Loading projects...", extra={'user_waiting':True})
+    logging.info("Loading projects...")
+    spinner.info("Done dude!", extra={'user_waiting':False})
     return id_name_regex.findall(projects_response)
 
 
 def get_categories(): # Should we be saving this in the .ini file? To avoid requiring it from nova each time and quicker printing.
     categories_response = backend.execute("categories")
-    logging.info("Loading categories...", extra={'user_waiting':True})
+    logging.info("Loading categories...")
     return id_name_regex.findall(categories_response)
 
 
@@ -133,7 +127,7 @@ def add_from_file():
 
 def validate_project(project_id):
     """
-
+    
     :param project_id: integer, the project_id to validate
     :return: boolean Wether the received project_id is a valid one or not.
     """
@@ -161,9 +155,23 @@ def validate_category(category_id):
     return any([category[0] for category in categories if int(category[0].strip()) == category_id])
     pass
 
-def main():
+def main(stream = sys.stdout):
+
     global novaconf
     global backend
+
+    handler = SpinnerHandler(stream=stream)
+    logger.addHandler(handler)
+    logger.setLevel(logging.INFO)
+
+    if os.environ.get('DEBUG') in ('yes','y','1','true'):
+        stream_handler = logger.StreamHandler(stream=stream)
+        stream_handler.addFilter(UserWaitingFilter())
+        stream_handler.setLevel(logging.DEBUG)
+        logger.addHandler(stream_handler)
+        logger.setLevel(logging.DEBUG)
+
+
     logging.basicConfig(filename='nonovawtf.log' ,format='%(asctime)s - %(levelname)s:%(message)s',datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.INFO)
     #Parse teh world (one command line at a time)
     logging.info("WOOOOT I\'M ALIVE MTF!")
@@ -178,10 +186,11 @@ def main():
         new_activity()
     elif args.getp:
         print backend.execute("projects")
-        logging.info("Projects are displayed!",extra={'user_waiting':False})
+        logging.info("Projects are displayed!")
+
     elif args.category:
         print backend.execute("categories")
-        logging.info("Categories are displayed!",extra={'user_waiting':False})
+        logging.info("Categories are displayed!")
     elif args.read:
         add_from_file()
 
