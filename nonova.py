@@ -17,6 +17,8 @@ activities = []
 id_name_regex = re.compile("(\d+)\s+([^\n]+)\n")
 
 logger = logging.getLogger('spinnerlogger')
+logger.setLevel(logging.INFO)
+logger.addHandler(SpinnerHandler())
 # --------- Arg Parser arguments --------------------------
 
 
@@ -67,11 +69,11 @@ def new_activity():
 
 
 def get_projects(): # Only changes the word to send
-    spinner = logger.getChild('get_projects')
-    spinner.info("Fetching projects...", extra={'user_waiting':True})
+    logger.getChild(spinnerlogger.getp)
+    logger.info("Fetching projects...", extra={'user_waiting':True})
     projects_response = backend.execute("projects")
     logging.info("Loading projects...")
-    spinner.info("Done dude!", extra={'user_waiting':False})
+    logger.info("Done dude!", extra={'user_waiting':False})
     return id_name_regex.findall(projects_response)
 
 
@@ -159,17 +161,6 @@ def main(stream = sys.stdout):
 
     global novaconf
     global backend
-
-    handler = SpinnerHandler(stream=stream)
-    logger.addHandler(handler)
-    logger.setLevel(logging.INFO)
-
-    if os.environ.get('DEBUG') in ('yes','y','1','true'):
-        stream_handler = logger.StreamHandler(stream=stream)
-        stream_handler.addFilter(UserWaitingFilter())
-        stream_handler.setLevel(logging.DEBUG)
-        logger.addHandler(stream_handler)
-        logger.setLevel(logging.DEBUG)
 
 
     logging.basicConfig(filename='nonovawtf.log' ,format='%(asctime)s - %(levelname)s:%(message)s',datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.INFO)
