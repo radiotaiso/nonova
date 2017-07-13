@@ -80,6 +80,7 @@ celerybeat-schedule
 # virtualenv
 venv/
 ENV/
+nonova/
 
 # Spyder project settings
 .spyderproject
@@ -96,3 +97,6 @@ ENV/
 # Idea shit
 .idea
 .DS_Store
+
+#Other shit
+.swp
