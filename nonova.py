@@ -9,7 +9,6 @@ from classer import NovaCliConn
 import activity
 import re
 from nonova_exceptions import InvalidCategoryException, InvalidProjectException
-from logging_spinner import SpinnerHandler, UserWaitingFilter
 
 activities = []
 
