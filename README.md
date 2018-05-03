@@ -4,7 +4,10 @@
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/UpsetPelican/nonova.svg)](http://isitmaintained.com/project/UpsetPelican/nonova "Average time to resolve an issue")
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/UpsetPelican/nonova.svg)](http://isitmaintained.com/project/UpsetPelican/nonova "Percentage of issues still open")
 
-# nonova
+
+# This project is no longer maintained. The bin used to access the API is no longer usable and I left the company where I used this for. 
+
+## nonova
 Sick of nova? this is your tool.
 
 ## Getting started
