@@ -5,7 +5,7 @@
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/UpsetPelican/nonova.svg)](http://isitmaintained.com/project/UpsetPelican/nonova "Percentage of issues still open")
 
 
-# This project is no longer maintained. The bin used to access the API is no longer usable and I left the company where I used this for. 
+# This project is no longer maintained. The bin used to access the API is no longer usable and I left the company where I used this. 
 
 ## nonova
 Sick of nova? this is your tool.
